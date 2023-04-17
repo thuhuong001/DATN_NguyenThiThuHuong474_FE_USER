@@ -1,0 +1,69 @@
+.header{
+    height: var(--height-header);
+    padding: 0px var(--padding-beside);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--background-color-header);
+}
+.logo{
+    max-width: 20%
+}
+.menu{
+    display: flex;
+}
+.menu-item{
+    padding: 0 20px;
+    cursor: pointer;
+}
+
+.action{
+    display: flex;
+    align-items: center;
+}
+.search{
+    width: 60px;
+    height: 40px;
+    border-radius: 40%;
+    border: 1px solid #d0cfcf;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-right: 20px;
+}
+.action_setting,.action_cart{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+.action_setting{
+    margin-right: 16px;
+}
+.account,.hd-card{
+    font-size: 13px;
+    color: var(--color-text-grey);
+    margin-top: 4px;
+}
+.number-pro{
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    transform: translate(0, -50%);
+    top: 0;
+    left: 50%;
+}
+.svg-ico-cart,.hd-icon{
+    width: 20px;
+    height: 20px;
+}

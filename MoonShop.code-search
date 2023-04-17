@@ -1,0 +1,13 @@
+# Query: MoonShop
+
+4 results - 3 files
+
+package-lock.json:
+  2:   "name": "MoonShop",
+  8:       "name": "MoonShop",
+
+package.json:
+  2:   "name": "MoonShop",
+
+README.md:
+  1: # MoonShop
