@@ -33,87 +33,6 @@ class config {
         "../../assets/img/sliders/slider-1.webp",
         "../../assets/img/sliders/slider-1.webp",
       ];
-    this.products = [
-        {
-          title:
-            "Giày Sandal Gót Trụ Phối Khoá Trang Trí",
-          price: 175000,
-          price_del: 250000,
-          colorEnum: [1, 2, 3],
-          link: "../assets/img/avt.png",
-          number_mass: 30,
-        },
-        {
-          title:
-            "Giày Sandal Gót Trụ Phối Khoá Trang Trí",
-          price: 175000,
-          price_del: 250000,
-          colorEnum: [1, 2, 3],
-          link: "../assets/img/avt.png",
-          number_mass: 30,
-        },
-        {
-          title:
-            "Giày Sandal Gót Trụ Phối Khoá Trang Trí",
-          price: 175000,
-          price_del: 250000,
-          colorEnum: [1, 2, 3],
-          link: "../assets/img/avt.png",
-          number_mass: 30,
-        },{
-          title:
-            "Giày Sandal Gót Trụ Phối Khoá Trang Trí",
-          price: 175000,
-          price_del: 250000,
-          colorEnum: [1, 2, 3],
-          link: "../assets/img/avt.png",
-          number_mass: 30,
-        },
-        {
-          title:
-            "Giày Sandal Gót Trụ Phối Khoá Trang Trí",
-          price: 175000,
-          price_del: 250000,
-          colorEnum: [1, 2, 3],
-          link: "../assets/img/avt.png",
-          number_mass: 30,
-        },
-        {
-          title:
-            "Giày Sandal Gót Trụ Phối Khoá Trang Trí",
-          price: 175000,
-          price_del: 250000,
-          colorEnum: [1, 2, 3],
-          link: "../assets/img/avt.png",
-          number_mass: 30,
-        },{
-          title:
-            "Giày Sandal Gót Trụ Phối Khoá Trang Trí",
-          price: 175000,
-          price_del: 250000,
-          colorEnum: [1, 2, 3],
-          link: "../assets/img/avt.png",
-          number_mass: 30,
-        },
-        {
-          title:
-            "Giày Sandal Gót Trụ Phối Khoá Trang Trí",
-          price: 175000,
-          price_del: 250000,
-          colorEnum: [1, 2, 3],
-          link: "../assets/img/avt.png",
-          number_mass: 30,
-        },
-        {
-          title:
-            "Giày Cao Gót Slingback Phối Khoá",
-          price: 175000,
-          price_del: 250000,
-          colorEnum: [1, 2, 3],
-          link: "../assets/img/avt.png",
-          number_mass: 30,
-        },
-      ];
       this.breakpointsProducts = { 
         0 :{
         itemsToShow: 1,
@@ -136,7 +55,8 @@ class config {
         itemsToShow: 5,
         wrapAround: true,
         snapAlign: "start",
-    }
+    };
+    this.products = [];
   }
 }
 export default config;

@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer">
+  <footer class="footer" v-if="$state.isHeaderAndFooterShow">
     <!-- Footer -->
     <MDBFooter :text="['center', 'lg-start', 'muted']">
       <!-- Section: Social media -->

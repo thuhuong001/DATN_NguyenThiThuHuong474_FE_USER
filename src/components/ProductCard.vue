@@ -1,17 +1,21 @@
 <template>
   <div class="p-card" :style="style">
+    <router-link
+          :to="`/products/${item.ProductId}`"
+        >
     <img
-      src="../assets/img/Products/giay3.webp"
+      src="../assets/img/Products/giay4.webp"
       alt=""
     />
+     </router-link>
     <div class="p-card-content">
-      <div class="title truncate_two-row">{{ item.title }}</div>
+      <div class="title truncate_two-row">{{ item.ProductName }}</div>
       <div class="proloop-price">
-        <div class="price">{{ formatPrice(item.price) }}</div>
-        <div class="price-del">{{ formatPrice(item.price_del) }}</div>
+        <div class="price">{{ formatPrice(item.PriceSale) }}</div>
+        <div class="price-del">{{ formatPrice(item.PriceDel) }}</div>
       </div>
-      <div class="discount" v-if="item.number_mass">
-        <div class="discount-number">{{ item.number_mass }}%</div>
+      <div class="discount" v-if="item.Discount">
+        <div class="discount-number">{{ item.Discount }}%</div>
         <div class="discount-title">Giảm</div>
       </div>
       <div class="p-color" v-if="colorType">

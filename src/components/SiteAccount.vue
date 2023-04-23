@@ -1,5 +1,5 @@
 <template>
-    <div class="m-account" :style="{display : this.$state.accountLogin ? 'block' : 'none'}" >
+    <div class="m-account" v-if="modelValue" >
         <div class="site_account_panel_list">
             <div class="login-panel" :style="{display : loginLayout ? 'block' : 'none'}">
                 <div class="site_account_header">
@@ -7,8 +7,8 @@
                     <p class="txt-small">Nhập email và mật khẩu của bạn:</p>
                 </div>
                 <div class="site_account_inner">
-                    <m-input-custom id="email" v-model="email" textField="Email"  />
-                    <m-input-custom id="password" v-model="password" textField="Mật khẩu" marginTop="12px" />
+                    <m-input id="email" v-model="email" placeholder="Email" textField="Email"  />
+                    <m-input id="password" v-model="password" placeholder="Mật khẩu" type="password" textField="Mật khẩu" marginTop="12px" />
                     <div class="remember-password">
                         <m-check-box v-model="remember" /> <span >Ghi nhớ mật khẩu</span>
                     </div>
@@ -26,7 +26,7 @@
                     <p class="txt-title">Khôi phục mật khẩu</p>
                     <p class="txt-small">Nhập email của bạn:</p>
                 </div>
-                <m-input-custom id="email" v-model="email" textField="Email" marginTop="12px" />
+                <m-input id="email" v-model="email" placeholder="Nhập email muốn lấy lại" textField="Email" marginTop="12px" />
                 <m-button backgroundColor="#000000" width="100%" margin="8px 0">KHÔI PHỤC</m-button>
                 <div class="site_account_secondary-action">
                         <div>Bạn đã nhớ mật khẩu? <span @click="loginLayout = true">Trở về đăng nhập</span></div>
@@ -36,15 +36,18 @@
     </div>
 </template>
 <script>
-import MInputCustom from '@/components/MInputCustom.vue';
 import MCheckBox from './checkbox/MCheckBox.vue';
 import MButton from './button/MButton.vue';
+import MInput from './input/MInput.vue';
 export default {
     name:"SiteAccount",
     components:{
-        MInputCustom,
         MCheckBox,
-        MButton
+        MButton,
+        MInput
+    },
+    props:{
+        modelValue : Boolean
     },
     data() {
         return {
@@ -57,7 +60,7 @@ export default {
     methods:{
         redirectRegister(){
             this.$router.push('/account/register');
-            this.$state.accountLogin = false;
+            this.$emit("update:modelValue",false);
         }
     }
 }

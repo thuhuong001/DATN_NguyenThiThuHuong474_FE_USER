@@ -4,8 +4,12 @@
 
 <script>
 import MainLayout from './layout/MainLayout.vue';
+
 export default {
   name: 'App',
+  created(){
+    this.$state.getUser();
+  },
   components: {
     MainLayout,
   }

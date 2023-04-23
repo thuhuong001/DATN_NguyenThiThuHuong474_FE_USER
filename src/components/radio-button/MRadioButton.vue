@@ -4,7 +4,7 @@
       type="radio"
       :id="id"
       :name="nameInput"
-      :checked="checked"
+      :checked="modelValue"
       @change="onChange"
       class="m-radio-button"
       :tabindex="tabIndex"
@@ -28,14 +28,16 @@ export default {
     nameInput: String,
     id: String,
     checked: Boolean,
-    tabIndex :Number
+    tabIndex :Number,
+    modelValue : Boolean
   },
   methods: {
     /**
      * Bắt sự kiện onChange
      */
     onChange() {
-      this.$emit("change", this.id);
+      console.log(this.id);
+      this.$emit("selected",this.id);
     },
   },
 };

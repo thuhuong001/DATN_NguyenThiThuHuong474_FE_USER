@@ -10,8 +10,8 @@
             v-model="currentSlide"
             class="carousel-image-item"
           >
-            <Slide v-for="(slide, index) in dataSliders" :key="index">
-              <img :src="slide" alt="" />
+            <Slide v-for="(slide, index) in item.Images" :key="index">
+              <img :src="slide.ImageLink" alt="" />
             </Slide>
             <template #addons>
               <Pagination />
@@ -28,35 +28,35 @@
           snapAlign="right"
           class="carousel-list-item-detail"
         >
-          <Slide v-for="(slide, index) in dataSliders" :key="index">
-            <img :src="slide" alt="" @click="slideTo(index)" />
+          <Slide v-for="(slide, index) in item.Images" :key="index">
+            <img :src="slide.ImageLink" alt="" @click="slideTo(index)" />
           </Slide>
         </Carousel>
       </div>
     </div>
     <div class="item-content">
       <div class="product-title">
-        Giày Cao Gót Slingback Phối Khoá
+        {{item.ProductName}}
       </div>
       <div class="product-brand">
-        Thương hiệu: <span>{{ "MOON" }}</span>
+        Thương hiệu: <span>{{ item.BrandName }}</span>
       </div>
       <div class="product-price">
-        <div class="product-price-old">690,000₫</div>
-        <div class="product-price-new">459,000₫</div>
+        <div class="product-price-old">{{formatPrice(item.PriceSale)}}</div>
+        <div class="product-price-new">{{formatPrice(item.PriceDel)}}</div>
       </div>
       <div class="product-color">
         <div class="product-color-title">
-          Màu sắc: <br /><strong> Xanh ngọc </strong>
+          Màu sắc: <br /><strong :style="{color : colorActive.ColorCode}"> {{colorActive.ColorName}} </strong>
         </div>
         <div class="product-color-list">
-          <div class="product-color-item" v-for="index in 4" :key="index"></div>
+          <div class="product-color-item" @click="activeColor(color)" :class="{'active' : colorActive.ColorId == color.ColorId}" v-for="color,index in Colors" :key="index" :style="{backgroundColor:color.ColorCode}"></div>
         </div>
       </div>
       <div class="product-size">
         <div class="product-size-title">Kích thước:</div>
         <div class="product-size-list">
-          <div class="product-size-item" v-for="index in 4" :key="index">26</div>
+          <div class="product-size-item" @click="activeSize(size)" :class="{'disable' : !listSizeByColor.includes(size.SizeId),'active' :sizeActive.SizeId == size.SizeId }" v-for="size,index in Sizes" :key="index">{{size.SizeCode}}</div>
         </div>
       </div>
       <hr />
@@ -64,9 +64,9 @@
         <a href="">Hướng dẫn chọn size</a>
       </div>
       <div class="select-quantity">
-        <button>-</button>
-        <input type="number" value="1" />
-        <button>+</button>
+        <button @click="quantityNumber(-1)">-</button>
+        <input type="number" @input="changeQuantity" @keydown="handleKeyDown" :min="1" :max="1000"  v-model="quantity" />
+        <button @click="quantityNumber(1)">+</button>
       </div>
       <div class="addcart-area">
         <button>
@@ -87,25 +87,26 @@
       <div class="product-description product-description--accordion">
         <div class="panel-group">
           <div class="panel-title">
-            <div class="panel-title-name">THông tin sản phẩm</div>
-          <div class="panel-icon"><i class="fa fa-plus"></i> </div>
+            <div class="panel-title-name">Thông tin sản phẩm</div>
+          <div class="panel-icon" @click="InformationSummary = !InformationSummary"><i class="fa fa-plus"></i> </div>
          </div>
+         <div v-html="item.Description" v-if="!InformationSummary"></div>
          <hr>
         </div>
         <div class="panel-group">
           <div class="panel-title noclick">
             <div class="panel-title-name">Dịch vụ giao hàng</div>
-          <div class="panel-icon"><i class="fa fa-plus"></i> </div>
+          <div class="panel-icon" @click="serviceSummary =!serviceSummary"><i class="fa fa-plus"></i> </div>
          </div>
          <hr>
-         <div class="description-content">
+         <div class="description-content" v-if="!serviceSummary">
           <div class="product-deliverly">
             <ul class="infoList-deliverly">
               <li>
                 <span>
                   <img src="https://file.hstatic.net/1000397797/file/delivery-ico1_f26631929e1b41dab022d9960006297c.svg" alt="">
                 </span>
-                Cam kết 100% chính hãng từ TokyoLife
+                Cam kết 100% chính hãng
               </li>
               <li>
                 <span>
@@ -131,7 +132,9 @@
 </template>
 
 <script>
+import common from '@/common/common';
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
+common
 export default {
   name: "ProductItemDetail",
   components: {
@@ -140,22 +143,67 @@ export default {
     Navigation,
     Pagination,
   },
+  props:{
+    item : Object
+  },
+  created(){
+  },
   data() {
     return {
       currentSlide: 0,
-      dataSliders: [
-        "https://product.hstatic.net/200000532555/product/314334569_2213754772340688_3339720577888659837_n_cb55f167d8bc4d26bb46903b5fb513fb_master.jpg",
-        "https://product.hstatic.net/200000532555/product/n_o_polo_dura_c_bo_d_t_t_ong_i9pol010k_xanh_l_350k_1_1_29803815bc594e369ee68fc4fd5628ab_master.jpg",
-        "https://product.hstatic.net/200000532555/product/n_o_dura_c_bo_d_t_t_ong_i9pol010k_v_ng_350k_1_f5881d1836934c9c8d9cfe674e9e0888_master.jpg",
-        "https://product.hstatic.net/200000532555/product/n_o_polo_dura_c_bo_d_t_t_ong_i9pol010k_350k_1_1_f4fbebf37ad54a4e96a8ae95fe76037d_master.jpg",
-      ],
+      InformationSummary : true,
+      serviceSummary : true,
+      Sizes:[],
+      Colors : [],
+      quantity : 1,
+      colorActive : {},
+      listSizeByColor : [],
+      sizeActive : {}
     };
   },
   methods: {
     slideTo(val) {
       this.currentSlide = val;
     },
+    formatPrice(price){
+      return common.formatPrice(price);
+    },
+    quantityNumber(qty){
+      var number = this.quantity + qty;
+      if(number > 0){
+        this.quantity = number;
+      }
+    },
+    changeQuantity(){
+      if(this.quantity < 1 || this.quantity > 100000){
+        this.quantity = 1;
+      }
+    },
+    handleKeyDown(event) {
+      if (event.key === "e") {
+        event.preventDefault();
+      }
+    },
+    activeColor(color){
+      this.colorActive = color;
+      this.listSizeByColor =this.colorActive.Sizes.length > 0 ? this.colorActive.Sizes.map(x => x.SizeId) : [];
+      this.sizeActive = color.Sizes[0] ? color.Sizes[0] : null;
+    },
+    activeSize(size){
+      this.sizeActive =size;
+    }
   },
+  watch:{
+    item : function() {
+      // eslint-disable-next-line no-debugger
+      debugger
+      this.Colors = this.item.Colors;
+      this.colorActive = this.Colors.length > 0 ? this.Colors[0] : {};
+      this.listSizeByColor = this.colorActive.Sizes.length > 0 ? this.colorActive.Sizes.map(x => x.SizeId) : [];
+      this.sizeActive = this.colorActive.Sizes.length > 0 ? this.colorActive.Sizes[0] : null;
+      this.Sizes = this.item.Sizes;
+    }
+  }
 };
 </script>
 <style>
@@ -244,10 +292,13 @@ export default {
   height: 34px;
   border-radius: 50%;
   cursor: pointer;
+  border: 1px solid #878c8f;
   background-color: red;
   margin-right: 16px;
 }
-
+.product-color-item.active{
+  outline: 2px solid blue;
+}
 .product-size {
   display: flex;
   align-items: center;
@@ -282,6 +333,31 @@ export default {
   text-align: center;
   cursor: pointer;
   margin-right: 12px;
+}
+.product-size-item.active{
+  background-color: var(--input-primary);
+  color:white;
+}
+.product-size-item.disable::before{
+  position: absolute;
+  content: "";
+  width:1px;
+  height: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  transform: rotate(45deg);
+  background-color: #515b5c;
+}
+.product-size-item.disable::after{
+  position: absolute;
+  content: "";
+  width:100%;
+  height: 1px;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  transform: rotate(45deg);
+  background-color: #515b5c;
 }
 .select-quantity{
   display: flex;
@@ -406,6 +482,7 @@ export default {
 }
 .panel-icon i{
   font-weight: 900;
+  cursor: pointer;
 }
 
 

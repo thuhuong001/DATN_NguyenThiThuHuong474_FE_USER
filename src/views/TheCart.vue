@@ -45,7 +45,7 @@
             : Đơn hàng có thể được giao làm nhiều lần do được vận chuyển từ nhiều kho
            </p>
            <div class="summary-alert alert alert-danger" style="display:none">Giỏ hàng của bạn hiện chưa đạt mức tối thiểu để thanh toán.</div>
-           <div class="summary-button">
+           <div class="summary-button" @click="$router.push('checkouts/1')">
             THANH TOÁN
            </div>
         </div>

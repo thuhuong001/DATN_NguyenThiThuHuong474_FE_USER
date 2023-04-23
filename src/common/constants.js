@@ -136,7 +136,7 @@ const constants = {
   regexConstants: {
 		EmployeeCode: /^NV-[0-9]{1,17}$/,
 		Email: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-		PhoneNumber: /((09|03|07|08|05)+([0-9]{8})\b)/,
+		Phone: /((09|03|07|08|05)+([0-9]{8})\b)/,
 		PhoneNumberFixed: /((09|03|07|08|05)+([0-9]{8})\b)/,
 	},
 };
