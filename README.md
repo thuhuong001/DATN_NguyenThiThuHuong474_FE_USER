@@ -1,4 +1,4 @@
-# MoonShop
+# moonshop
 
 ## Project setup
 ```
