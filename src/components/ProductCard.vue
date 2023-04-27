@@ -1,13 +1,18 @@
 <template>
   <div class="p-card" :style="style">
-    <router-link
-          :to="`/products/${item.ProductId}`"
-        >
-    <img
-      src="../assets/img/Products/giay4.webp"
-      alt=""
-    />
-     </router-link>
+     <!-- <router-link :to="`/products/${item.ProductId}`"> -->
+      <Carousel
+        :class="p - card - image"
+        :settings="settingSliderBarImage"
+      >
+        <Slide v-for="image,index in item.Images" :key="index" class="p-card-image">
+          <img 
+            :src="image.ImageLink"
+            alt=""
+          />
+        </Slide>
+      </Carousel>
+    <!-- </router-link> -->
     <div class="p-card-content">
       <div class="title truncate_two-row">{{ item.ProductName }}</div>
       <div class="proloop-price">
@@ -27,17 +32,28 @@
         ></div>
       </div>
     </div>
+    <div class="action-cart">
+      <m-button @click="addToCart">Thêm vào giỏ</m-button>
+    </div>
   </div>
 </template>
 <script>
+import "vue3-carousel/dist/carousel.css";
+import { Carousel, Slide } from "vue3-carousel";
 import common from "../common/common.js";
 import msEnum from "../common/enum.js";
+import MButton from './button/MButton.vue';
 export default {
   name: "ProductCard",
   data() {
     return {
       msEnum: msEnum,
     };
+  },
+  components:{
+    Carousel,
+    Slide,
+    MButton
   },
   props: {
     item: Object,
@@ -60,6 +76,18 @@ export default {
       if (this.item.colorEnum && this.item.colorEnum.length > 0) return true;
       return false;
     },
+    data() {
+      return {
+        settingSliderBarImage: {
+          itemsToShow: 1,
+          breakpoints: "breakpoints",
+          wrapAround: "true",
+          autoplay: 1000,
+          transition : 1000,
+          pauseAutoplayOnHover: true,
+        },
+      };
+    },
   },
   methods: {
     formatPrice(price) {
@@ -68,6 +96,9 @@ export default {
     getColor(enumColor) {
       return common.getColor(enumColor);
     },
+    addToCart(){
+      this.$router.push("/products/"+ this.item.ProductId);
+    }
   },
 };
 </script>

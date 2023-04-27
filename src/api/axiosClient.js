@@ -23,13 +23,9 @@ const axiosClient = axios.create({
 // Xử lý token
 axiosClient.interceptors.request.use(
   function(config) {
-    // eslint-disable-next-line no-debugger
-    debugger
     const token = localStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
-    }else{
-      router.push('/');
     }
     return config;
   },
@@ -43,22 +39,18 @@ axiosClient.interceptors.request.use(
  */
 axiosClient.interceptors.response.use(
   (response) => {
-    // eslint-disable-next-line no-debugger
-    debugger
     if (response && response.data) {
       return response.data;
     }
     return response;
   },
   (error) => {
-    // eslint-disable-next-line no-debugger
-    debugger
     console.log("Lỗi", error);
     // Xử lý các lỗi của response
     if (error.response) {
       // Xử lý các lỗi từ phía server
       if (error.response.status === 401) {
-        // router.push('/login');
+        router.push('/');
         toastMessage(resources.vi.errorMessageAPI.ERROR_AUTHENTICATE);
       }
     } else if (error.request) {

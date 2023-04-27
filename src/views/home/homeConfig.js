@@ -53,8 +53,10 @@ class config {
       };
     this.settingsProduct = {
         itemsToShow: 5,
-        wrapAround: true,
         snapAlign: "start",
+        autoplay : 3000,
+        touchDrag : false,
+        pauseAutoplayOnHover : true,
     };
     this.products = [];
   }

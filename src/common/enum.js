@@ -141,6 +141,12 @@ const enumH = {
       paymentMethod :{
         TTKLH : 0 , // thanh toán khi lấy hàng,
         VNPAY : 1, //thanh toans online
+      },
+      filterProductType:{
+        selling : 1, // Sản phẩm bán chạy
+        new : 2, // sản phẩm mới
+        PriceDesc : 3, // Sản phẩm giảm dần theo giá
+        PriceAsc: 4, // Sản phẩm tăng dần theo giá
       }
     };
     export default enumH;

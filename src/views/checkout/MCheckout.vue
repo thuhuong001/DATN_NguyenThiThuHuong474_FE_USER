@@ -1,7 +1,7 @@
 <template>
   <div class="checkout">
     <div class="checkout-address">
-      <img src="/img/logo.2fdf4e31.webp" alt="" class="img-checkout" />
+      <a href="/"><img src="/img/logo.2fdf4e31.webp" alt="" class="img-checkout" /></a>
       <FolderRoutes :folderRoutes="folderRoutes" />
       <h3 class="method-title">Thông tin giao hàng</h3>
       <div class="combo-select">
@@ -176,7 +176,7 @@ import AddressReceive from "@/components/AddressReceive.vue";
 import MCombobox from "@/components/combobox/MCombobox.vue";
 import MInput from "@/components/input/MInput.vue";
 import resources from "@/common/resource";
-import enumMISA from "@/common/enum";
+import enumH from "@/common/enum";
 import CartItemCheckout from "@/components/Cart/CartItemCheckout.vue";
 import MButton from "@/components/button/MButton.vue";
 import regionApi from "@/api/regionApi";
@@ -209,7 +209,7 @@ export default {
       Wards: [],
       ShippingCost: 0,
       ShippingPayment: 0,
-      enumPayment: enumMISA.paymentMethod,
+      enumPayment: enumH.paymentMethod,
       folderRoutes: [
         {
           url: "/cart",
@@ -229,8 +229,6 @@ export default {
     async getListAddressReceive() {
       const data = await new baseApi("AddressReceive").getByFilter({});
       this.listAddressReceive = data.Data;
-      // eslint-disable-next-line no-debugger
-      debugger
       const addressDefault = this.listAddressReceive.find(x => x.IsDefault);
       this.AddressReceiveDefault = addressDefault ? addressDefault : {};
     },

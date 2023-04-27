@@ -12,7 +12,7 @@
     <div class="media-right">
       <div class="item-info">
         <h3 class="item--title">
-          Giày Cao Gót Slingback Phối Khoá
+           Slingback Phối Khoá
         </h3>
         <div class="item--variant"><span>Xanh ngọc / 36</span></div>
       </div>

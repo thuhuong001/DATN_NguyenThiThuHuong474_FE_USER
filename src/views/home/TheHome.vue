@@ -105,6 +105,7 @@ import ProductCard from "@/components/ProductCard.vue";
 import { VBtn } from "vuetify/lib/components";
 import NewsItem from '@/components/NewsItem.vue';
 import baseApi from '@/api/baseApi';
+import enumH from '@/common/enum';
 export default {
   name: "TheHome",
   components: {
@@ -115,14 +116,28 @@ export default {
     NewsItem
   },
   created: async function() {
-    this.config.products = await (await new baseApi("Product").getByFilterDetail({})).Data;
-    // eslint-disable-next-line no-debugger
-    debugger
+    this.FilterType = enumH.filterProductType.selling;
+    var res = await new baseApi("Product").getByFilterDetail(this.paramsFilter);
+    this.config.products  = res.Data ? res.Data : [];
   },
   data() {
     return {
       config: new homeConfig(),
+      TextSearch : "",
+        PageNumber : 1,
+        PageSize : 20,
+        FilterType : 0,
     };
   },
+  computed:{
+    paramsFilter(){
+      return {
+        TextSearch : this.TextSearch,
+        PageNumber :  this.PageNumber,
+        PageSize : this.PageSize,
+        FilterType :  this.FilterType
+      }
+    }
+  }
 };
 </script>

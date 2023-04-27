@@ -222,8 +222,6 @@ export default {
       this.$emit("update:isShow", false);
     },
     async getListAddressReceive() {
-      // eslint-disable-next-line no-debugger
-      debugger;
       const data = await this.apiAddressReceiveApi.getByFilter({});
       this.listAddressReceive = data.Data;
       const addressDefault = this.listAddressReceive.find(
@@ -236,8 +234,6 @@ export default {
       this.$emit("update:modelValue", addressDefault);
     },
     getAddressDetail() {
-      // eslint-disable-next-line no-debugger
-      debugger;
       const ProvinceName = this.Provinces.find(
         (x) => x.RegionID == this.ProvinceID
       ).RegionName;
@@ -259,8 +255,6 @@ export default {
     },
     async addAddressReceice() {
       try {
-        // eslint-disable-next-line no-debugger
-        debugger;
         if (!this.checkValidateFormSubmit) {
           return;
         }

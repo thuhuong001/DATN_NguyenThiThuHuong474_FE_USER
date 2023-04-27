@@ -15,7 +15,7 @@
       <div class="action_setting">
         <div
           class="hd-icon"
-          @click="isShowLogin = !isShowLogin"
+          @click="this.$state.isShowLogin = !this.$state.isShowLogin"
           v-if="!$state.user"
         >
           <svg class="svg-ico-account" viewBox="0 0 1024 1024">
@@ -30,9 +30,19 @@
           </svg>
         </div>
         <div class="account-user-login">
-          <div class="account" v-if="!$state.user">Tài khoản</div>
-          <div class="account-user" v-if="$state.user" @click="isShowSettingUser = !isShowSettingUser">{{$state.user.FullName}} <div class="icon-drop"></div></div>
-          <div class="header-action_dropdown" v-if="isShowSettingUser">
+          <div class="account" 
+            ref="accountUser" 
+            @click="this.$state.isShowLogin = !this.$state.isShowLogin" v-if="!$state.user">Tài khoản</div>
+          <div
+            class="account-user"
+            v-if="$state.user"
+            @click="isShowSettingUser = !isShowSettingUser"
+            ref="accountUser"
+          >
+            {{ $state.user.FullName }}
+            <div class="icon-drop"></div>
+          </div>
+          <div class="header-action_dropdown" v-if="isShowSettingUser" v-click-outside="clickOutSideInfoUser">
             <div class="header-dropdown_content">
               <div class="site_account_panel_list">
                 <div class="site_account_info">
@@ -43,8 +53,10 @@
                     <ul>
                       <li class="user-name"><span>Thu Hường Nguyễn</span></li>
                       <li><a href="/account">Tài khoản của tôi</a></li>
-                      <li><a href="/account/addresses">Danh sách địa chỉ</a></li>
-                      <li><a href="/account/logout">Đăng xuất</a></li>
+                      <li>
+                        <a href="/account/addresses">Danh sách địa chỉ</a>
+                      </li>
+                      <li><a @click="logout">Đăng xuất</a></li>
                     </ul>
                   </div>
                 </div>
@@ -52,11 +64,10 @@
             </div>
           </div>
         </div>
-        <site-account  v-model="isShowLogin"/>
+        <site-account v-model="this.$state.isShowLogin" @click-outside="clickOutSideSideAccount" />
       </div>
-
-      <router-link to="/cart">
-        <div class="action_cart">
+      <div class="cart-icon-view">
+        <div class="action_cart" ref="cartView" @click="isShowCartView = !isShowCartView" @dblclick="$router.push('/cart')">
           <div class="hd-icon">
             <svg
               class="svg-ico-cart"
@@ -77,25 +88,95 @@
             <div class="number-pro">1</div>
           </div>
           <div class="hd-card">Giỏ hàng</div>
+          </div>
+          <div class="cart-view" v-if="isShowCartView" v-click-outside="clickOutSideCartView">
+          <h1>Giỏ hàng</h1>
+          <div class="cart-view-list">
+            <div class="cart-view-item">
+              <cart-item-view />
+            </div>
+            <div class="cart-view-item">
+              <cart-item-view />
+            </div>
+            <div class="cart-view-item">
+              <cart-item-view />
+            </div>
+            <div class="cart-view-item">
+              <cart-item-view />
+            </div>
+            <div class="cart-view-item">
+              <cart-item-view />
+            </div>
+            <div class="cart-view-item">
+              <cart-item-view />
+            </div>
+          </div>
+          <div class="cart-total-price">
+            <div >TỔNG TIỀN:</div>
+            <div >3,672,000₫</div>
+          </div>
+          
+        <m-button backgroundColor="#ff0000" width="100%" @click="rediricCart">Xem giỏ hàng</m-button>
         </div>
-      </router-link>
+      </div>
     </div>
   </header>
 </template>
 
 <script>
+import MButton from './button/MButton.vue';
+import CartItemView from "./Cart/CartItemView.vue";
 import SiteAccount from "./SiteAccount.vue";
+import authApi from "@/api/authApi";
 export default {
   name: "TheFooter",
   components: {
     SiteAccount,
+    CartItemView,
+    MButton
   },
   data() {
     return {
-      isShowLogin: false,
       isShowSettingUser: false,
-    }
+      isShowCartView: false,
+    };
   },
+  methods:{
+    rediricCart(){
+      this.isShowCartView = false;
+      this.$router.push('/cart');
+    },
+    async logout(){
+      try {
+        // eslint-disable-next-line no-debugger
+        debugger
+        var res = await new authApi().signout(localStorage.getItem("token"));
+        if(res){
+          localStorage.removeItem("user");
+          localStorage.removeItem("token");
+          window.location.reload();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    clickOutSideSideAccount(e){
+      if(!this.$refs.accountUser.contains(e.target) && !this.$refs.hdIcon.contains(e.target)){
+          this.$state.isShowLogin = false;
+      }
+    },
+    clickOutSideInfoUser(e){
+      if(!this.$refs.accountUser.contains(e.target)){
+          this.isShowSettingUser = false;
+      }
+    },
+    clickOutSideCartView(e){
+      if(!this.$refs.cartView.contains(e.target)){
+          this.isShowCartView = false;
+      }
+    }
+
+  }
 };
 </script>
 

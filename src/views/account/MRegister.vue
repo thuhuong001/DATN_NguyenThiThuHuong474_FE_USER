@@ -112,19 +112,16 @@ export default {
   methods: {
     async registerSubmit() {
       try {
-        // eslint-disable-next-line no-debugger
-        debugger
         if (!this.checkValidateFormSubmit()) {
           return;
         }
         this.$state.isMask();
-        this.modelRegister.FullName = this.modelRegister.FirstName + " " + this.modelRegister.LastName;
+        this.modelRegister.FullName = this.modelRegister.FirstName.trim() + " " + this.modelRegister.LastName.trim();
         const res = await new baseApi("Customer").create(this.modelRegister);
         if(!res.ErrorCode){
           localStorage.setItem('token', res.Data.Token);
-          this.$state.user = res.Data.Customer;
           this.$state.setUser(res.Data.Customer);
-          this.$router.push("/");
+          window.location("/");
         }
         this.$state.unMask();
       } catch (error) {
