@@ -8,6 +8,7 @@ const state = reactive({
   user: null,
   isHeaderAndFooterShow: true,
   isShowLogin: false,
+  cartNumber : 0,
   /**
    * Mảng chứa các toast message
    */
@@ -29,15 +30,15 @@ const state = reactive({
   setUser(user) {
     // eslint-disable-next-line no-debugger
     debugger
-    const encodedUser = window.btoa(JSON.stringify(user));
-    localStorage.setItem("user", encodedUser);
+    // const encodedUser = window.btoa(JSON.stringify(user));
+    localStorage.setItem("user", JSON.stringify(user));
     this.user = user;
   },
   getUser() {
     try {
       const encodedUser = localStorage.getItem("user");
       if (encodedUser) {
-        const user = JSON.parse(window.atob(encodedUser));
+        const user = JSON.parse(encodedUser);
         this.user = user;
       } else {
         localStorage.removeItem("token");

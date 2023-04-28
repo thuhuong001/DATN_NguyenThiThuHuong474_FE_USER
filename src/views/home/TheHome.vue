@@ -21,8 +21,7 @@
           <Slide v-for="item in 10" :key="item">
             <div class="promotion-content-item">
               <div class="promotion-content-title">Sale Up to 80%</div>
-              <span>MoonShop ưu đãi tới 80%. Số lượng có hạn - Shopping
-                ngay!</span
+              <span>MoonShop ưu đãi tới 80%. Số lượng có hạn - Shopping ngay!</span
               >
             </div>
           </Slide>

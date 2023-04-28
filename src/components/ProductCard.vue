@@ -2,7 +2,7 @@
   <div class="p-card" :style="style">
      <!-- <router-link :to="`/products/${item.ProductId}`"> -->
       <Carousel
-        :class="p - card - image"
+      class="p-card-image"
         :settings="settingSliderBarImage"
       >
         <Slide v-for="image,index in item.Images" :key="index" class="p-card-image">

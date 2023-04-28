@@ -23,16 +23,18 @@
     margin: 10px 0;
 }
 .price{
-    color: #c92027;
-    margin-right: 4px;
-    font-weight: bold;
-}
-.price-del{
-    color: #cecece;
+    
+    color: #797272;
     text-decoration: line-through;
     font-weight: 300;
-    font-size: 13px;
+    font-size: 15px;
+    margin-right: 4px;
+}
+.price-del{
     margin-left: 4px;
+    color: #c92027;
+    font-weight: bold;
+    font-size: 18px;
 }
 .discount{
     position: absolute;

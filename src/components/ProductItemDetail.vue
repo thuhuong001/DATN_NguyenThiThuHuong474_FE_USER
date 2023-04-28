@@ -100,7 +100,7 @@
           <span>Thêm vào giỏ</span>
         </button>
         <button class="btnred">
-          <span>Mua ngay</span>
+          <span @click="toCart()">Mua ngay</span>
         </button>
       </div>
       <div class="product-policy-detail">
@@ -232,7 +232,9 @@ export default {
       if (!this.$state.user) {
         this.$state.isShowLogin = true;
       } else {
-        var ProductVariant = this.colorActive.Sizes.filter(
+        // eslint-disable-next-line no-debugger
+        debugger
+        var ProductVariant = this.colorActive.Sizes.find(
           (x) => x.SizeId == this.sizeActive.SizeId
         );
         var cart = {
@@ -244,6 +246,10 @@ export default {
         console.log(res);
       }
     },
+    async toCart(){
+      await this.addToCart();
+      this.$router.push("/cart");
+    }
   },
   watch: {
     item: function () {
@@ -277,7 +283,7 @@ export default {
   flex-direction: column;
 }
 .carousel.carousel-image-item > .carousel__viewport {
-  height: 500px !important;
+  height: 600px !important;
 }
 .carousel.carousel-image-item ol {
   height: 100% !important;

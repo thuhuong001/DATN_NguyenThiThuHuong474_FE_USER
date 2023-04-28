@@ -12,11 +12,11 @@
           <div class="cart-row">
             <p class="title-number-cart">
               Bạn đang có
-              <strong class="count-cart">7 sản phẩm</strong>
+              <strong class="count-cart">{{carts.length}} sản phẩm</strong>
               trong giỏ hàng
             </p>
             <div class="table-cart">
-              <cart-item v-for="index in 4" :key="index" />
+              <cart-item v-for="cart,index in carts" :item="cart" :key="index" />
             </div>
           </div>
           <div class="order-noted-block">
@@ -31,11 +31,11 @@
         <div class="summary-total">
             <p style="font-weight:normal">Tổng giá trước KM: 
                 <span style="color: #252a2b;font-size: 20px;font-weight:normal">
-                    <del>5,520,000₫</del>
+                  <del>{{formatPrice(total.totalDel)}}</del>
                 </span>
             </p>
             <p style="font-weight:normal">Tổng tiền: 
-                <span total-final>3,672,000₫</span>
+              <span total-final>{{formatPrice(total.totalPrice)}}</span>
             </p>
         </div>
         <div class="summary-action">
@@ -68,12 +68,40 @@
 <script>
 import CartItem from "@/components/Cart/CartItem.vue";
 import FolderRoutes from "@/components/FolderRoutes.vue";
+import baseApi from '@/api/baseApi';
+import common from '@/common/common';
 export default {
   name: "TheCart",
   components: {
     FolderRoutes,
     CartItem,
   },
+  created : async function(){
+    const res = await new baseApi("Cart").getByFilter({
+      parentId : "d9e33b8c-39e2-4e54-ba8b-80ecd44104a0"
+    });
+    this.carts = res.Data;
+    // eslint-disable-next-line no-debugger
+    debugger
+    this.carts.forEach(element => {
+        this.total.totalPrice +=element.TotalPrice;
+        this.total.totalDel +=element.TotalDel;
+    });
+  },
+  data() {
+    return {
+      carts : [],
+      total : {
+        totalPrice : 0,
+        totalDel : 0
+      }
+    }
+  },
+  methods:{
+    formatPrice(price) {
+      return common.formatPrice(price);
+    },
+  }
 };
 </script>
 <style scoped>

@@ -59,6 +59,7 @@ class config {
         pauseAutoplayOnHover : true,
     };
     this.products = [];
+    this.productRelated = [];
   }
 }
 export default config;

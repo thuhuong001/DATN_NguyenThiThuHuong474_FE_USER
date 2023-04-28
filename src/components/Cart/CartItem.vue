@@ -3,7 +3,7 @@
     <div class="media-leff">
       <div class="item-img">
         <img
-          src="../../assets/img/Products/giay1.webp"
+        :src="item.Images[0].ImageLink"
           alt=""
         />
         <div class="item-remove">Xóa</div>
@@ -12,25 +12,25 @@
     <div class="media-right">
       <div class="item-info">
         <h3 class="item--title">
-          Giày Cao Gót Slingback Phối Khoá
+          {{item.ProductName}}
         </h3>
-        <div class="item--variant"><span>Xanh ngọc / 36</span></div>
+        <div class="item--variant"><span>{{item.ColorName + " / " + item.SizeCode}}</span></div>
       </div>
       <div class="item-price">
         <p>
-          <span>459,000</span>
-          <del>690,000</del>
+          <span>{{formatPrice(item.PriceDel)}}</span>
+          <del>{{formatPrice(item.PriceSale)}}</del>
         </p>
       </div>
     </div>
     <div class="media-total">
       <div class="item-total-price">
-        <span class="line-item-total">918,000₫</span>
+        <span class="line-item-total">{{formatPrice(item.TotalPrice)}}</span>
       </div>
       <div class="item-qty">
         <div class="quantity-partent">
           <button class="qtyminus">-</button>
-          <input type="text" class="line-item-qty" value="2" />
+          <input type="text" class="line-item-qty" :value="item.Quantity" />
           <button class="qtyplus">+</button>
         </div>
       </div>
@@ -38,7 +38,17 @@
   </div>
 </template>
 <script>
-export default {};
+import common from '@/common/common';
+export default {
+  props:{
+    item : Object
+  },
+  methods:{
+    formatPrice(price) {
+      return common.formatPrice(price);
+    },
+  }
+};
 </script>
 <style scoped>
 .cart-item {

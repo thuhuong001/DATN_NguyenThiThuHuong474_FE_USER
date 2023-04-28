@@ -22,25 +22,11 @@ export default {
   },
   data() {
     return {
-        folderRoutesTest : [
-        {
-          url: "/",
-          title: "Trang chủ ",
-        },
-        {
-          url: "/1",
-          title: "Giày cao gót ",
-        },
-        {
-          url: "/3",
-          title: "Giày Cao Gót Slingback Phối Khoá",
-        },
-      ]
     }
   },
   methods:{
     routesNow(index){
-        return index === this.folderRoutesTest.length - 1;
+      return index === this.folderRoutesTest?.length - 2;
     }
   }
 };
