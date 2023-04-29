@@ -99,7 +99,7 @@
 <script>
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide } from "vue3-carousel";
-import homeConfig from "./homeConfig";
+import config from "@/config";
 import ProductCard from "@/components/ProductCard.vue";
 import { VBtn } from "vuetify/lib/components";
 import NewsItem from '@/components/NewsItem.vue';
@@ -121,7 +121,7 @@ export default {
   },
   data() {
     return {
-      config: new homeConfig(),
+      config: new config(),
       TextSearch : "",
         PageNumber : 1,
         PageSize : 20,

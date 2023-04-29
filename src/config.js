@@ -28,10 +28,10 @@ class config {
         pauseAutoplayOnHover : true,
     },
     this.dataSliders =[
-        "../../assets/img/sliders/slider-1.webp",
-        "../../assets/img/sliders/slider-1.webp",
-        "../../assets/img/sliders/slider-1.webp",
-        "../../assets/img/sliders/slider-1.webp",
+        "https://res.cloudinary.com/dqywrcgrr/image/upload/v1679152826/%E1%BA%A3nh/slider-1_wpbt7j.webp",
+        "https://res.cloudinary.com/dqywrcgrr/image/upload/v1679152826/%E1%BA%A3nh/slider-2_twg6sx.webp",
+        "https://res.cloudinary.com/dqywrcgrr/image/upload/v1679152827/%E1%BA%A3nh/slider-3_hdirii.webp",
+        "https://res.cloudinary.com/dqywrcgrr/image/upload/v1679152826/%E1%BA%A3nh/slider-4_hzu9iy.webp",
       ];
       this.breakpointsProducts = { 
         0 :{
@@ -58,6 +58,7 @@ class config {
         touchDrag : false,
         pauseAutoplayOnHover : true,
     };
+    
     this.products = [];
     this.productRelated = [];
   }
