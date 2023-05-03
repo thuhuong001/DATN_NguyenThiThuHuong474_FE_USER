@@ -1,53 +1,111 @@
 <template>
   <div class="cart-item">
     <div class="media-leff">
-      <div class="item-img">
-        <img
-        :src="item.Images[0].ImageLink"
-          alt=""
-        />
-        <div class="item-remove">Xóa</div>
+      <div class="item-img" @click="$router.push(`products/${item.ProductId}`)">
+        <img :src="item.Images[0].ImageLink" alt="" />
+        <div class="item-remove" @click="removeCartItem">Xóa</div>
       </div>
     </div>
     <div class="media-right">
       <div class="item-info">
         <h3 class="item--title">
-          {{item.ProductName}}
+          {{ item.ProductName }}
         </h3>
-        <div class="item--variant"><span>{{item.ColorName + " / " + item.SizeCode}}</span></div>
+        <div class="item--variant">
+          <span>{{ item.ColorName + " / " + item.SizeNumber }}</span>
+        </div>
       </div>
       <div class="item-price">
         <p>
-          <span>{{formatPrice(item.PriceDel)}}</span>
-          <del>{{formatPrice(item.PriceSale)}}</del>
+          <span>{{ $state.formatPrice(item.PriceDel) }}</span>
+          <del>{{ $state.formatPrice(item.PriceSale) }}</del>
         </p>
       </div>
     </div>
     <div class="media-total">
       <div class="item-total-price">
-        <span class="line-item-total">{{formatPrice(item.TotalPrice)}}</span>
+        <span class="line-item-total">{{
+          $state.formatPrice(item.TotalPrice)
+        }}</span>
       </div>
       <div class="item-qty">
         <div class="quantity-partent">
-          <button class="qtyminus">-</button>
-          <input type="text" class="line-item-qty" :value="item.Quantity" />
-          <button class="qtyplus">+</button>
+          <button class="qtyminus" @click.prevent="quantityNumber(-1)">
+            -
+          </button>
+          <input
+            type="text"
+            class="line-item-qty"
+            v-model="quantity"
+            @input="changeQuantity"
+            @keydown="handleKeyDown"
+          />
+          <button class="qtyplus" @click.prevent="quantityNumber(1)">+</button>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import common from '@/common/common';
+import cartApi from "@/api/cartApi";
 export default {
-  props:{
-    item : Object
+  props: {
+    item: Object,
   },
-  methods:{
-    formatPrice(price) {
-      return common.formatPrice(price);
+  data() {
+    return {
+      quantity: 1,
+    };
+  },
+  created() {
+    this.quantity = this.item?.Quantity;
+  },
+  methods: {
+    async removeCartItem() {
+      this.$emit("remove", this.item.CartId);
     },
-  }
+    async updateQuantity(quantity) {
+      try {
+        await new cartApi().updateQuantity({
+          Id: this.item.CartId,
+          Quantity: quantity,
+        });
+        this.$emit("refresh");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async quantityNumber(qty) {
+      var number = this.quantity + qty;
+      if (number > 0) {
+        this.quantity = number;
+      } else {
+        return;
+      }
+      await this.updateQuantity(number);
+    },
+    async changeQuantity() {
+      if (this.quantity < 1 || this.quantity > 100000) {
+        this.quantity = 1;
+      }
+      await this.updateQuantity(this.quantity);
+    },
+    handleKeyDown(event) {
+      if (event.key === "e") {
+        event.preventDefault();
+      }
+    },
+  },
+  watch: {
+    item: {
+      handler() {
+        if (this.item?.Quantity) {
+          this.quantity = this.item.Quantity;
+        }
+      },
+      deep: true,
+    },
+  },
 };
 </script>
 <style scoped>
@@ -133,7 +191,7 @@ export default {
   font-size: 15px;
   font-weight: 600;
 }
-.item-total-price{
+.item-total-price {
   text-align: right;
 }
 .quantity-partent {

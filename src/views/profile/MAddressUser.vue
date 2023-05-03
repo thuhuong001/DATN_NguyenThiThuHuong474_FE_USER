@@ -1,10 +1,18 @@
 <template>
-  <m-pop-up :isShow="isShow" minWidth="600px">
-    <template #header>
-      <h4>Địa chỉ của bạn</h4>
-      <hr />
-    </template>
+  <div v-if="isShow" :style="{display : hidden ? 'none' : 'unset'}">
     <div class="address-receive-body">
+      <div class="address-receive-title" v-if="formTab == 0">
+        <h5>Địa chỉ của tôi</h5>
+        <m-button
+        backgroundColor="var(--input-primary)"
+        @click="
+          () => {
+            (formTab = 1), (formData = {});
+          }
+        "
+        >Thêm địa chỉ</m-button
+      >
+      </div>
       <div class="" v-if="formTab == 0">
         <div
           class="address-customer"
@@ -27,7 +35,7 @@
               {{ address.AddressDetail }}
             </div>
             <div class="btn-default-address" v-if="address.IsDefault">
-              Mặc định
+              mặc định
             </div>
           </div>
           <div
@@ -37,7 +45,6 @@
             Cập nhật
           </div>
         </div>
-        
       </div>
       <div class="m__e-form" v-else-if="formTab == 1">
         <div class="form__row" style="width: 100%">
@@ -132,29 +139,13 @@
           @message-error-input="handleBindMessageInput"
         />
       </div>
-    </div>
-    <template #footer>
-      <hr />
-      <div class="m-f-bw">
+      <div class="m-f-bw m-t-20">
         <div @click="isPopUpDelete = false">
-          <m-button typeBtn="close" v-if="formTab == 0" @click="closePopup"
-            >Hủy</m-button
-          >
           <m-button typeBtn="close" v-if="formTab == 1" @click="formTab = 0"
             >Trở lại</m-button
           >
         </div>
         <div>
-          <m-button
-            backgroundColor="var(--input-primary)"
-            v-if="formTab == 0"
-            @click="
-            () => {
-              (formTab = 1), (formData = {});
-            }
-          "
-            >Thêm địa chỉ</m-button
-          >
           <m-button
             backgroundColor="var(--input-primary)"
             v-if="formTab == 1"
@@ -163,11 +154,10 @@
           >
         </div>
       </div>
-    </template>
-  </m-pop-up>
+    </div>
+  </div>
 </template>
 <script>
-import MPopUp from "@/components/pop-up/MPopUp.vue";
 import MButton from "@/components/button/MButton.vue";
 import MRadioButton from "@/components/radio-button/MRadioButton.vue";
 import MInput from "@/components/input/MInput.vue";
@@ -178,9 +168,8 @@ import mixinForm from "@/mixins/mixinForm.js";
 
 import addressReceiveApi from "@/api/addressReceiveApi";
 export default {
-  name: "AddressReceive",
+  name: "MAddressUser",
   components: {
-    MPopUp,
     MButton,
     MRadioButton,
     MInput,
@@ -189,9 +178,10 @@ export default {
   props: {
     modelValue: Object,
     isShow: Boolean,
+    hidden : Boolean,
   },
   created: async function () {
-    await this.getLocaltionByParentId(234,"Provinces");
+    await this.getLocaltionByParentId(234, "Provinces");
     await this.getListAddressReceive();
   },
   mixins: [mixinForm],
@@ -259,7 +249,7 @@ export default {
           return;
         }
         this.formData.AddressDetail = this.getAddressDetail();
-        this.formData.CustomerId = this.$state.user.CustomerId;
+        this.formData.CustomerId = "78a7263f-db45-11ed-8d99-00ffe749b949";
         this.formData.ProvinceID = this.ProvinceID;
         this.formData.WardID = this.WardID;
         this.formData.DistrictID = this.DistrictID;
@@ -308,35 +298,33 @@ export default {
     async updateAddressReceive(address) {
       this.formData = address;
       this.ProvinceID = address.ProvinceID;
-      await this.getLocaltionByParentId(234,"Provinces");
+      await this.getLocaltionByParentId(234, "Provinces");
       this.DistrictID = address.DistrictID;
-      await this.getLocaltionByParentId(address.DistrictID,"Districts");
+      await this.getLocaltionByParentId(address.DistrictID, "Districts");
       this.WardID = address.WardID;
-      await this.getLocaltionByParentId(address.WardID,"Wards");
+      await this.getLocaltionByParentId(address.WardID, "Wards");
       this.formTab = 1;
       this.formMode = 1;
     },
-    async getLocaltionByParentId(id,localtionName){
+    async getLocaltionByParentId(id, localtionName) {
       var data = await this.api.getRegionByParentId(id);
-      if(localtionName == "Provinces"){
+      if (localtionName == "Provinces") {
         this.Provinces = data ? data : [];
-      }
-      else if(localtionName == "Districts"){
+      } else if (localtionName == "Districts") {
         this.Districts = data ? data : [];
-      }
-      else{
+      } else {
         this.Wards = data ? data : [];
       }
-    }
+    },
   },
   watch: {
     ProvinceID: async function () {
       this.DistrictID = 0;
-      await this.getLocaltionByParentId(this.ProvinceID,"Districts");
+      await this.getLocaltionByParentId(this.ProvinceID, "Districts");
     },
     DistrictID: async function () {
       this.WardID = 0;
-      await this.getLocaltionByParentId(this.DistrictID,"Wards");
+      await this.getLocaltionByParentId(this.DistrictID, "Wards");
     },
   },
 };
@@ -449,5 +437,19 @@ export default {
 }
 .radio-default {
   margin-right: 12px;
+}
+.address-receive-body {
+  max-height: unset;
+  min-height: unset;
+  overflow: unset;
+  padding: 24px;
+  background-color: white;
+  
+}
+.address-receive-title{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  align-items: center;
 }
 </style>

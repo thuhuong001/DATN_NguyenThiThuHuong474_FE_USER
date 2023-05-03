@@ -25,8 +25,9 @@
           :items-to-show="5"
           v-model="currentSlide"
           ref="carousel"
-          snapAlign="right"
+          snapAlign="left"
           class="carousel-list-item-detail"
+          :setting="settingsSlide"
         >
           <Slide v-for="(slide, index) in item.Images" :key="index">
             <img :src="slide.ImageLink" alt="" @click="slideTo(index)" />
@@ -42,8 +43,12 @@
         Thương hiệu: <span>{{ item.BrandName }}</span>
       </div>
       <div class="product-price">
-        <div class="product-price-old">{{ formatPrice(item.PriceSale) }}</div>
-        <div class="product-price-new">{{ formatPrice(item.PriceDel) }}</div>
+        <div class="product-price-old">
+          {{ $state.formatPrice(item.PriceSale) }}
+        </div>
+        <div class="product-price-new">
+          {{ $state.formatPrice(item.PriceDel) }}
+        </div>
       </div>
       <div class="product-color">
         <div class="product-color-title">
@@ -75,7 +80,7 @@
             v-for="(size, index) in Sizes"
             :key="index"
           >
-            {{ size.SizeCode }}
+            {{ size.SizeNumber }}
           </div>
         </div>
       </div>
@@ -166,9 +171,10 @@
 </template>
 
 <script>
-import common from "@/common/common";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 import baseApi from "@/api/baseApi";
+import cartApi from "@/api/cartApi";
+import resources from "@/common/resource";
 export default {
   name: "ProductItemDetail",
   components: {
@@ -192,14 +198,17 @@ export default {
       colorActive: {},
       listSizeByColor: [],
       sizeActive: {},
+      settingsSlide: {
+        itemsToShow: 5,
+        snapAlign: "start",
+        touchDrag: false,
+        pauseAutoplayOnHover: true,
+      },
     };
   },
   methods: {
     slideTo(val) {
       this.currentSlide = val;
-    },
-    formatPrice(price) {
-      return common.formatPrice(price);
     },
     quantityNumber(qty) {
       var number = this.quantity + qty;
@@ -229,27 +238,40 @@ export default {
       this.sizeActive = size;
     },
     async addToCart() {
-      if (!this.$state.user) {
-        this.$state.isShowLogin = true;
-      } else {
-        // eslint-disable-next-line no-debugger
-        debugger
-        var ProductVariant = this.colorActive.Sizes.find(
-          (x) => x.SizeId == this.sizeActive.SizeId
+      try {
+        if (!this.$state.user) {
+          this.$state.isShowLogin = true;
+        } else {
+          // eslint-disable-next-line no-debugger
+          debugger;
+          var ProductVariant = this.colorActive.Sizes.find(
+            (x) => x.SizeId == this.sizeActive.SizeId
+          );
+          var cart = {
+            ProductVariantId: ProductVariant.ProductVariantId,
+            Quantity: this.quantity,
+            CustomerId: this.$state.user.CustomerId,
+          };
+          await new baseApi("Cart").create(cart);
+          if (this.$state.user) {
+            const cartNumber = await new cartApi("Cart").cartNumber();
+            this.$state.cartNumber = cartNumber?.data == 0 ? 0 : cartNumber;
+          }
+          this.$state.toastMessage.unshift(
+            resources.vi.TOAST_MESSAGE.SUCCESS("Thêm sản phẩm vào giỏ")
+          );
+        }
+      } catch (error) {
+        console.log(error);
+        this.$state.toastMessage.unshift(
+          resources.vi.TOAST_MESSAGE.ERROR("Có lỗi vui lòng thử lại!")
         );
-        var cart = {
-          ProductVariantId: ProductVariant.ProductVariantId,
-          Quantity: this.quantity,
-          CustomerId: this.$state.user.CustomerId,
-        };
-        const res = await new baseApi("Cart").create(cart);
-        console.log(res);
       }
     },
-    async toCart(){
+    async toCart() {
       await this.addToCart();
       this.$router.push("/cart");
-    }
+    },
   },
   watch: {
     item: function () {

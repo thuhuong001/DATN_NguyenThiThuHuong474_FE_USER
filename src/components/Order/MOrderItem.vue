@@ -1,41 +1,83 @@
 <template>
-  <div class="cart-item">
-    <div class="media-leff">
-      <div class="item-img">
-        <img
-          :src="item.Images[0].ImageLink"
-          alt=""
-        />
-        <div class="item-remove">{{item.Quantity}}</div>
+  <div class="order-main-item">
+    <div class="top">
+      <div class="status-title">HOÀN THÀNH</div>
+    </div>
+    <div class="order-item" >
+      <div class="media-leff">
+        <div
+          class="item-img"
+        >
+          <img :src="item.Images[0].ImageLink" alt="" />
+          <div class="item-quantity">1</div>
+        </div>
+      </div>
+      <div class="media-right">
+        <div class="item-info">
+          <h3 class="item--title">
+            {{ item.ProductName }}
+          </h3>
+          <div class="item--variant">
+            <span>{{ item.ColorName + " / " + item.SizeNumber }}</span>
+          </div>
+        </div>
+        <div class="item-price">
+          <p>
+            <span>{{ $state.formatPrice(item.PriceDel) }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="media-total">
+        <div class="item-total-price">
+          <span class="line-item-total">{{
+            $state.formatPrice(item.TotalPrice)
+          }}</span>
+        </div>
       </div>
     </div>
-    <div class="media-right">
-      <div class="item-info">
-        <h3 class="item--title">
-          {{item.ProductName}}
-        </h3>
-        <div class="item--variant"><span>{{item.ColorName}} / {{item.SizeNumber}}</span></div>
-      </div>
-    </div>
-    <div class="media-total">
-      <span>{{$state.formatPrice(item.TotalPrice)}}</span>
+    <div class="bottom">
+      <m-button>Đánh giá</m-button>
     </div>
   </div>
 </template>
 <script>
+import MButton from "../button/MButton.vue";
 export default {
-  props:{
-    item: Object
-  }
+  props: {
+    item: Object,
+  },
+  components: {
+    MButton,
+  },
+  data() {
+    return {};
+  },
+  created() {},
 };
 </script>
 <style scoped>
-.cart-item {
+.status-title {
+  color: var(--color-btn-primary);
+  font-weight: 500;
+  text-align: right;
+}
+.bottom {
+  text-align: right;
+  margin-top: 12px;
+}
+.order-main-item{
+    background-color: white;
+    padding:12px 20px ;
+    margin: 12px 0;
+    border-radius: 4px;
+}
+.order-item {
   position: relative;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 15px 10px;
+  border-top: 1px solid #eae8e8;
   border-bottom: 1px solid #eae8e8;
 }
 .media-left {
@@ -45,13 +87,12 @@ export default {
 }
 .item-img {
   position: relative;
-  width: 60px;
-  height: 60px;
+  width: 80px;
 }
 .item-img img {
   border: 1px solid #ededed;
 }
-.item-remove {
+.item-quantity {
   position: absolute;
   top: -7px;
   left: -10px;
@@ -115,7 +156,7 @@ export default {
   font-size: 15px;
   font-weight: 600;
 }
-.item-total-price{
+.item-total-price {
   text-align: right;
 }
 .quantity-partent {

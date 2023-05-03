@@ -35,4 +35,8 @@
 .m-input-checkbox:checked ~ .m-checkbox-lable{
     transform: rotate(90deg);
 }
+.htgh span{
+    font-size: 13px;
+    color: #306a55;
+}
 

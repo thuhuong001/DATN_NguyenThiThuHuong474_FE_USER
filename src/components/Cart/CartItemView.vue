@@ -3,27 +3,36 @@
     <div class="media-leff">
       <div class="item-img">
         <img
-          src="../../assets/img/Products/giay1.webp"
+          :src="item.Images[0].ImageLink"
           alt=""
         />
-        <div class="item-remove">1</div>
+        <div class="item-remove">{{item.Quantity}}</div>
       </div>
     </div>
     <div class="media-right">
       <div class="item-info">
         <h3 class="item--title">
-           Slingback Phối Khoá
+          {{item.ProductName}}
         </h3>
-        <div class="item--variant"><span>Xanh ngọc / 36</span></div>
+        <div class="item--variant"><span>{{item.ColorName}} / {{item.SizeNumber}}</span></div>
       </div>
     </div>
     <div class="media-total">
-      <span>459,000</span>
+      <span>{{$state.formatPrice(item.TotalPrice)}}</span>
     </div>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props:{
+    item : Object
+  },
+  data() {
+    return {
+      
+    }
+  },
+};
 </script>
 <style scoped>
 .cart-item {

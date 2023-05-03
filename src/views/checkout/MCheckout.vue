@@ -1,14 +1,16 @@
 <template>
   <div class="checkout">
     <div class="checkout-address">
-      <a href="/"><img src="/img/logo.2fdf4e31.webp" alt="" class="img-checkout" /></a>
+      <a href="/"
+        ><img src="/img/logo.2fdf4e31.webp" alt="" class="img-checkout"
+      /></a>
       <FolderRoutes :folderRoutes="folderRoutes" />
       <h3 class="method-title">Thông tin giao hàng</h3>
       <div class="combo-select">
         <MCombobox
           :data="listAddressReceive"
           v-model="AddressReceiveDefault.AddressReceiveId"
-          @itemSelected="(item) => AddressReceiveDefault = item"
+          @itemSelected="(item) => (AddressReceiveDefault = item)"
           ref="AddressReceive"
           propName="AddressDetail"
           propValue="AddressReceiveId"
@@ -58,41 +60,51 @@
         :errorMsg="errorMsgObject?.Address"
         @message-error-input="handleBindMessageInput"
       />
+      <div class="order-noted-block">
+        <label for="" class="note-label">Ghi chú đơn hàng</label>
+        <textarea
+          name=""
+          id=""
+          cols="30"
+          rows="2"
+          class="form-control"
+          v-model="formCheckout.Note"
+        ></textarea>
+      </div>
       <div class="shipping-method">
         <h3 class="method-title">Phương thức vận chuyển</h3>
         <div class="method-list">
-          <div class="method-item">
+          <div
+            class="method-item"
+            v-for="(shipment, index) in shipments"
+            :key="index"
+          >
             <div class="method-left">
               <input
                 type="radio"
-                name="method"
-                id="tietkiem"
-                :value="25000"
-                v-model="ShippingCost"
+                name="shipping-method"
+                :id="'htgh-' + index"
+                :value="shipment.ShipmentCode"
+                v-model="ShippingMethod"
+                :checked="ShippingMethod == shipment.ShipmentCode"
               />
-              <label for="tietkiem">Giao hàng tiết kiệm</label>
+              <label :for="'htgh-' + index" class="htgh"
+                >{{ shipment.ShipmentName }}
+                <span v-if="ShippingMethod == shipment.ShipmentCode"
+                  >({{ shipment.DateReceive }})</span
+                ></label
+              >
             </div>
-            <div class="method-right">25,000₫</div>
-          </div>
-          <div class="method-item">
-            <div class="method-left">
-              <input
-                type="radio"
-                name="method"
-                id="nhanh"
-                :value="35000"
-                v-model="ShippingCost"
-              />
-              <label for="nhanh">Giao hàng nhanh</label>
+            <div class="method-right">
+              {{ $state.formatPrice(shipment.PriceShip) }}
             </div>
-            <div class="method-right">35,000₫</div>
           </div>
         </div>
       </div>
       <div class="payment-methods">
         <h3 class="method-title">Phương thức thanh toán</h3>
         <div class="method-list">
-          <div class="method-item">
+          <!-- <div class="method-item">
             <div class="method-left">
               <input
                 type="radio"
@@ -109,19 +121,19 @@
                 >Thẻ ATM/Visa/Master/JCB/QR Pay qua cổng VNPAY</label
               >
             </div>
-          </div>
+          </div> -->
           <div class="method-item">
             <div class="method-left">
               <input
                 type="radio"
-                name="method"
+                name="payment-methods"
                 id="COD"
-                :value="enumPayment.VNPAY"
-                v-model="ShippingPayment"
+                :value="enumPayment.TTKLH"
+                v-model="paymentMethod"
+                checked
               />
               <img
                 src="https://hstatic.net/0/0/global/design/seller/image/payment/cod.svg?v=4"
-                alt=""
               />
               <label for="COD">Thanh toán khi giao hàng (COD)</label>
             </div>
@@ -129,15 +141,21 @@
         </div>
       </div>
       <div class="checkout-btn">
-        <div class="checkout-btn-cart">Giỏ hàng</div>
-        <div class="checkout-btn-pay">Hoàn tất thanh toán</div>
+        <div class="checkout-btn-cart" @click="$router.push('/cart')">
+          Giỏ hàng
+        </div>
+        <div class="checkout-btn-pay" @click="submitCheckout">
+          Hoàn tất thanh toán
+        </div>
       </div>
     </div>
     <div class="checkout-detail">
-      <cart-item-checkout />
-      <cart-item-checkout />
-      <cart-item-checkout />
-      <hr />
+      <cart-item-checkout
+        v-for="(cart, index) in carts"
+        :key="index"
+        :item="cart"
+      />
+      <!-- <hr />
       <label for="discount-code" class="lb-discount-code">Mã giảm giá</label>
       <div class="form__row" style="width: 100%">
         <div class="form__row f-bw" style="width: 60%">
@@ -146,20 +164,26 @@
         <div class="form__row f-bw" style="width: 35%">
           <MButton width="100%">Sử dụng</MButton>
         </div>
-      </div>
+      </div> -->
       <hr />
       <div class="total-detail">
         <div class="total-detail-left">Tạm tính</div>
-        <div class="total-detail-right">249,000₫</div>
+        <div class="total-detail-right">
+          {{ $state.formatPrice(totalPriceProduct()) }}
+        </div>
       </div>
       <div class="total-detail">
         <div class="total-detail-left">Phí vận chuyển</div>
-        <div class="total-detail-right">30,000₫</div>
+        <div class="total-detail-right">
+          {{ $state.formatPrice(getPriceShipment()) }}
+        </div>
       </div>
       <hr />
       <div class="total-detail">
         <div class="total-detail-left">Tổng cộng</div>
-        <div class="total-detail-right">279,000₫</div>
+        <div class="total-detail-right">
+          {{ $state.formatPrice(totalPriceProduct() + getPriceShipment()) }}
+        </div>
       </div>
     </div>
   </div>
@@ -178,7 +202,6 @@ import MInput from "@/components/input/MInput.vue";
 import resources from "@/common/resource";
 import enumH from "@/common/enum";
 import CartItemCheckout from "@/components/Cart/CartItemCheckout.vue";
-import MButton from "@/components/button/MButton.vue";
 import regionApi from "@/api/regionApi";
 import baseApi from "@/api/baseApi";
 export default {
@@ -189,10 +212,16 @@ export default {
     MCombobox,
     MInput,
     CartItemCheckout,
-    MButton,
   },
   created: async function () {
+    // eslint-disable-next-line no-debugger
+    debugger;
     this.$state.isHeaderAndFooterShow = false;
+    let res = await new baseApi("Cart").getByFilter({});
+    this.carts = res.Data;
+    res = await new baseApi("Shipment").getByFilter({});
+    this.shipments = res.Data;
+    this.ShippingMethod = this.shipments ? this.shipments[0].ShipmentCode : "2";
     await this.getListAddressReceive();
   },
   unmounted() {
@@ -207,8 +236,9 @@ export default {
       Provinces: [],
       Districts: [],
       Wards: [],
-      ShippingCost: 0,
-      ShippingPayment: 0,
+      ShippingMethod: "1",
+      paymentMethod: 0,
+      shipments: [],
       enumPayment: enumH.paymentMethod,
       folderRoutes: [
         {
@@ -216,26 +246,81 @@ export default {
           title: "Giỏ hàng",
         },
         {
-          url: "/checkouts/123",
+          url: "/checkout",
           title: "Thông tin giao hàng ",
         },
       ],
       apiRegion: new regionApi(),
       listAddressReceive: [],
       AddressReceiveDefault: {},
+      carts: [],
     };
   },
   methods: {
     async getListAddressReceive() {
       const data = await new baseApi("AddressReceive").getByFilter({});
       this.listAddressReceive = data.Data;
-      const addressDefault = this.listAddressReceive.find(x => x.IsDefault);
+      const addressDefault = this.listAddressReceive.find((x) => x.IsDefault);
       this.AddressReceiveDefault = addressDefault ? addressDefault : {};
     },
-    async closePopupAddress(){
+    async closePopupAddress() {
       this.isShowAddressReceive = false;
       await this.getListAddressReceive();
-    }
+    },
+    totalPriceProduct() {
+      var totalPrice = 0;
+      this.carts.forEach((x) => {
+        totalPrice += x.TotalPrice;
+      });
+      return totalPrice;
+    },
+    totalQuantity() {
+      var totalQuantity = 0;
+      this.carts.forEach((x) => {
+        totalQuantity += x.Quantity;
+      });
+      return totalQuantity;
+    },
+    getPriceShipment() {
+      let price = this.shipments.find(
+        (x) => x.ShipmentCode == this.ShippingMethod
+      )?.PriceShip;
+      return price ? price : 0;
+    },
+    async submitCheckout() {
+      try {
+        // eslint-disable-next-line no-debugger
+        debugger;
+        this.addProperty();
+
+        var orderDetails = [];
+        this.carts.forEach((x) => {
+          orderDetails.push({
+            Quantity: x.Quantity,
+            PriceSale: x.PriceDel,
+            ProductVariantId: x.ProductVariantId,
+            Discount: x.Discount,
+          });
+        });
+        let formBody = this.formCheckout;
+        formBody.OrderDetails = orderDetails;
+
+        await new baseApi("Order").create(formBody);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    addProperty() {
+      this.formCheckout.TotalAmount = this.totalQuantity();
+      this.formCheckout.TotalPrice = this.totalPriceProduct();
+      this.formCheckout.PaymentMethod = this.paymentMethod;
+      this.formCheckout.ShipmentId = this.shipments.find(
+        (x) => x.ShipmentCode == this.ShippingMethod
+      )?.ShipmentId;
+      this.formCheckout.AddressReceiveId =
+        this.AddressReceiveDefault.AddressReceiveId;
+      this.Status = enumH.enumStatusCheckout.ChoXacNhan;
+    },
   },
   watch: {},
 };

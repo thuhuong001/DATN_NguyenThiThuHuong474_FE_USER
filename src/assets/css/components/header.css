@@ -144,7 +144,7 @@
     list-style: circle;
     position: relative;
 }
-.site_account_inner li:not(:first-child):before{
+.site_account_inner li:before{
     content: "";
     height: 4px;
     width: 4px;

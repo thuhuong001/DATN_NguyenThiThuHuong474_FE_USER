@@ -4,6 +4,23 @@ const enumH = {
       blue : 2,
       white : 3,
     },
+    enumStatusCheckout:{
+      ChoXacNhan : 1,
+      ChoLayHang : 2,
+      DangVanChuyen : 3,
+      DaNhanHang  :4,
+      HoanThanh : 5,
+      Huy : 6
+    },
+    enumStatusOrder:{
+      TatCa : 0,
+      ChoThanhToan : 1,
+      VanChuyen : 2,
+      DangGiao : 3,
+      HoanThanh  :4,
+      DaHuy : 5,
+      TraHang : 6
+    },
       /**
        * Enum giới tính
        */
@@ -139,8 +156,8 @@ const enumH = {
         vote : 18,
       },
       paymentMethod :{
-        TTKLH : 0 , // thanh toán khi lấy hàng,
-        VNPAY : 1, //thanh toans online
+        TTKLH : 1 , // thanh toán khi lấy hàng,
+        VNPAY : 2, //thanh toans online
       },
       filterProductType:{
         selling : 1, // Sản phẩm bán chạy

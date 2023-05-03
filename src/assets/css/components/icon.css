@@ -267,3 +267,14 @@
 	width: 14px;
 	height: 14px;
 }
+
+.icon-order{
+	background: url('../../img/Sprites.64af8f61.svg')no-repeat -1267px -258px;
+	width: 18px;
+	height: 20px;
+}
+.icon-user{
+	background: url('../../img/Sprites.64af8f61.svg')no-repeat -930px -202px;
+	width: 20px;
+	height: 20px;
+}

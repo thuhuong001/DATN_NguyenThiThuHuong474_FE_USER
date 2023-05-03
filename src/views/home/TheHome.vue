@@ -1,9 +1,9 @@
 <template>
   <div class="home">
     <div class="homepage-slider">
-      <Carousel :settings="config.settingSliderBar">
-        <Slide v-for="(item, index) in config.dataSliders" :key="index">
-          <img :src="item" :alt="index" />
+      <Carousel :settings="config.settingSliderBar">        
+        <Slide v-for="(item, index) in config.sliders" :key="index">
+          <img :src="item.ImageLink" :alt="index" />
         </Slide>
         <!-- <template #addons>
           <Navigation />
@@ -34,7 +34,7 @@
       <img src="../../assets/img/banner/banner-1.webp" alt="" />
     </div>
     <div class="list-product">
-      <div class="list-product-title">Sản phẩm bán chạy</div>
+      <div class="list-product-title">Sản phẩm mới nhất</div>
       <Carousel
         :settings="config.settingsProduct"
         :breakpoints="config.breakpointsProducts"
@@ -49,15 +49,6 @@
     </div>
     <div class="list-product">
       <div class="list-product-title">Sản phẩm bán chạy</div>
-      <Carousel
-        :settings="config.settingsProduct"
-        :breakpoints="config.breakpointsProducts"
-      >
-        <Slide v-for="item in config.products" :key="item">
-          <product-card :item="item" />
-        </Slide>
-      </Carousel>
-      <div class="m-t-16"></div>
       <Carousel
         :settings="config.settingsProduct"
         :breakpoints="config.breakpointsProducts"
@@ -82,7 +73,7 @@
     <div class="home-news">
       <div class="list-news-title">Tin tức MoonShop</div>
       <div class="list-news">
-          <news-item v-for="index in 9" :key="index" />
+          <news-item v-for="index in 6" :key="index" />
       </div>
       <div class="list-news-navigation">Xem các tin bài khác »</div>
     </div>
@@ -118,6 +109,8 @@ export default {
     this.FilterType = enumH.filterProductType.selling;
     var res = await new baseApi("Product").getByFilterDetail(this.paramsFilter);
     this.config.products  = res.Data ? res.Data : [];
+    res = await new baseApi("Slider").getByFilter(this.paramsFilter);
+    this.config.sliders  = res.Data ? res.Data : [];
   },
   data() {
     return {
@@ -140,3 +133,5 @@ export default {
   }
 };
 </script>
+<style scoped>
+</style>

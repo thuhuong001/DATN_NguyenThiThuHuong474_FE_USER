@@ -58,7 +58,7 @@ class config {
         touchDrag : false,
         pauseAutoplayOnHover : true,
     };
-    
+    this.sliders = [];
     this.products = [];
     this.productRelated = [];
   }

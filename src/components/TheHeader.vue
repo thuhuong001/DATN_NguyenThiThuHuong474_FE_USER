@@ -16,6 +16,7 @@
         <div
           class="hd-icon"
           @click="this.$state.isShowLogin = !this.$state.isShowLogin"
+          ref="hdIcon"
           v-if="!$state.user"
         >
           <svg class="svg-ico-account" viewBox="0 0 1024 1024">
@@ -30,9 +31,14 @@
           </svg>
         </div>
         <div class="account-user-login">
-          <div class="account" 
-            ref="accountUser" 
-            @click="this.$state.isShowLogin = !this.$state.isShowLogin" v-if="!$state.user">Tài khoản</div>
+          <div
+            class="account"
+            ref="accountUser"
+            @click="this.$state.isShowLogin = !this.$state.isShowLogin"
+            v-if="!$state.user"
+          >
+            Tài khoản
+          </div>
           <div
             class="account-user"
             v-if="$state.user"
@@ -42,7 +48,11 @@
             {{ $state.user.FullName }}
             <div class="icon-drop"></div>
           </div>
-          <div class="header-action_dropdown" v-if="isShowSettingUser" v-click-outside="clickOutSideInfoUser">
+          <div
+            class="header-action_dropdown"
+            v-if="isShowSettingUser"
+            v-click-outside="clickOutSideInfoUser"
+          >
             <div class="header-dropdown_content">
               <div class="site_account_panel_list">
                 <div class="site_account_info">
@@ -51,8 +61,7 @@
                   </div>
                   <div class="site_account_inner">
                     <ul>
-                      <li class="user-name"><span>Thu Hường Nguyễn</span></li>
-                      <li><a href="/account">Tài khoản của tôi</a></li>
+                      <li><a href="/account/profile">Tài khoản của tôi</a></li>
                       <li>
                         <a href="/account/addresses">Danh sách địa chỉ</a>
                       </li>
@@ -64,10 +73,18 @@
             </div>
           </div>
         </div>
-        <site-account v-model="this.$state.isShowLogin" @click-outside="clickOutSideSideAccount" />
+        <site-account
+          v-model="this.$state.isShowLogin"
+          @click-outside="clickOutSideSideAccount"
+        />
       </div>
       <div class="cart-icon-view">
-        <div class="action_cart" ref="cartView" @click="isShowCartView = !isShowCartView" @dblclick="$router.push('/cart')">
+        <div
+          class="action_cart"
+          ref="cartView"
+          @click="isShowCartView = !isShowCartView"
+          @dblclick="$router.push('/cart')"
+        >
           <div class="hd-icon">
             <svg
               class="svg-ico-cart"
@@ -85,38 +102,39 @@
                 d="m360.355469 322.332031c-30.046875 0-54.402344 24.355469-54.402344 54.402344 0 30.042969 24.355469 54.398437 54.402344 54.398437 30.042969 0 54.398437-24.355468 54.398437-54.398437-.03125-30.03125-24.367187-54.371094-54.398437-54.402344zm0 88.800781c-19 0-34.402344-15.402343-34.402344-34.398437 0-19 15.402344-34.402344 34.402344-34.402344 18.996093 0 34.398437 15.402344 34.398437 34.402344 0 18.996094-15.402344 34.398437-34.398437 34.398437zm0 0"
               ></path>
             </svg>
-            <div class="number-pro">1</div>
+            <div class="number-pro" v-if="$state.user">{{ $state.cartNumber }}</div>
           </div>
           <div class="hd-card">Giỏ hàng</div>
-          </div>
-          <div class="cart-view" v-if="isShowCartView" v-click-outside="clickOutSideCartView">
+        </div>
+        <div
+          class="cart-view"
+          v-if="isShowCartView && $state.user"
+          v-click-outside="clickOutSideCartView"
+        >
           <h1>Giỏ hàng</h1>
-          <div class="cart-view-list">
-            <div class="cart-view-item">
-              <cart-item-view />
-            </div>
-            <div class="cart-view-item">
-              <cart-item-view />
-            </div>
-            <div class="cart-view-item">
-              <cart-item-view />
-            </div>
-            <div class="cart-view-item">
-              <cart-item-view />
-            </div>
-            <div class="cart-view-item">
-              <cart-item-view />
-            </div>
-            <div class="cart-view-item">
-              <cart-item-view />
+          <div class="cart-view-list" v-if="$state.cartNumber != 0">
+            <div
+              class="cart-view-item"
+              v-for="(item, index) in cartView"
+              :key="index"
+            >
+              <cart-item-view :item="item" />
             </div>
           </div>
-          <div class="cart-total-price">
-            <div >TỔNG TIỀN:</div>
-            <div >3,672,000₫</div>
+          <div class="cart-total-price" v-if="$state.cartNumber != 0">
+            <div>TỔNG TIỀN:</div>
+            <div>{{ $state.formatPrice(getTotal()) }}</div>
           </div>
-          
-        <m-button backgroundColor="#ff0000" width="100%" @click="rediricCart">Xem giỏ hàng</m-button>
+          <div class="m__e-list-empty" v-if="$state.cartNumber == 0">
+            <img
+              src="@/assets/img/bg_report_nodata.76e50bd8.svg"
+              alt="Không có dữ liệu"
+            />
+            <div>Không có sản phẩm trong giỏ hàng</div>
+          </div> 
+          <m-button backgroundColor="#ff0000" width="100%" @click="rediricCart" v-if="$state.cartNumber != 0"
+            >Xem giỏ hàng</m-button
+          >
         </div>
       </div>
     </div>
@@ -124,34 +142,36 @@
 </template>
 
 <script>
-import MButton from './button/MButton.vue';
+import MButton from "./button/MButton.vue";
 import CartItemView from "./Cart/CartItemView.vue";
 import SiteAccount from "./SiteAccount.vue";
 import authApi from "@/api/authApi";
+import baseApi from "@/api/baseApi";
 export default {
   name: "TheFooter",
   components: {
     SiteAccount,
     CartItemView,
-    MButton
+    MButton,
   },
   data() {
     return {
       isShowSettingUser: false,
       isShowCartView: false,
+      cartView: [],
     };
   },
-  methods:{
-    rediricCart(){
+  methods: {
+    rediricCart() {
       this.isShowCartView = false;
-      this.$router.push('/cart');
+      this.$router.push("/cart");
     },
-    async logout(){
+    async logout() {
       try {
         // eslint-disable-next-line no-debugger
-        debugger
+        debugger;
         var res = await new authApi().signout(localStorage.getItem("token"));
-        if(res){
+        if (res) {
           localStorage.removeItem("user");
           localStorage.removeItem("token");
           window.location.reload();
@@ -160,24 +180,49 @@ export default {
         console.log(error);
       }
     },
-    clickOutSideSideAccount(e){
-      if(!this.$refs.accountUser.contains(e.target) && !this.$refs.hdIcon.contains(e.target)){
-          this.$state.isShowLogin = false;
+    clickOutSideSideAccount(e) {
+      if (
+        !this.$refs.accountUser.contains(e.target) &&
+        !this.$refs.hdIcon.contains(e.target)
+      ) {
+        this.$state.isShowLogin = false;
       }
     },
-    clickOutSideInfoUser(e){
-      if(!this.$refs.accountUser.contains(e.target)){
-          this.isShowSettingUser = false;
+    clickOutSideInfoUser(e) {
+      if (!this.$refs.accountUser.contains(e.target)) {
+        this.isShowSettingUser = false;
       }
     },
-    clickOutSideCartView(e){
-      if(!this.$refs.cartView.contains(e.target)){
-          this.isShowCartView = false;
+    clickOutSideCartView(e) {
+      if (!this.$refs.cartView.contains(e.target)) {
+        this.isShowCartView = false;
       }
-    }
-
-  }
+    },
+    getTotal() {
+      var total = 0;
+      (this.cartView ? this.cartView : []).forEach((x) => {
+        total += x.TotalPrice;
+      });
+      return total;
+    },
+  },
+  watch: {
+    isShowCartView: async function () {
+      if (this.isShowCartView && this.$state.user) {
+        const res = await new baseApi("Cart").getByFilter({});
+        this.cartView = res.Data;
+      }
+    },
+  },
 };
 </script>
 
-<style></style>
+<style>
+.m__e-list-empty {
+  text-align: center;
+  display: block;
+}
+.m__e-list-empty img{
+  width: 100px;
+}
+</style>

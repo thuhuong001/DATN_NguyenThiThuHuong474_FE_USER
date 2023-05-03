@@ -35,16 +35,6 @@ class baseApi {
     }
   };
   /**
-   * Lấy mã item mới
-   */
-  getNewCode = () => {
-    try {
-      return axiosClient.get(this.baseUrl + "GetNewCode");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  /**
    * Lấy 1 item theo Id
    */
   getById = (id) => {

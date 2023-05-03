@@ -1,23 +1,21 @@
 <template>
   <div class="p-card" :style="style">
-     <!-- <router-link :to="`/products/${item.ProductId}`"> -->
-      <Carousel
-      class="p-card-image"
-        :settings="settingSliderBarImage"
+    <!-- <router-link :to="`/products/${item.ProductId}`"> -->
+    <Carousel class="p-card-image" :settings="settingSliderBarImage">
+      <Slide
+        v-for="(image, index) in item.Images"
+        :key="index"
+        class="p-card-image"
       >
-        <Slide v-for="image,index in item.Images" :key="index" class="p-card-image">
-          <img 
-            :src="image.ImageLink"
-            alt=""
-          />
-        </Slide>
-      </Carousel>
+        <img :src="image.ImageLink" alt="" />
+      </Slide>
+    </Carousel>
     <!-- </router-link> -->
     <div class="p-card-content">
       <div class="title truncate_two-row">{{ item.ProductName }}</div>
       <div class="proloop-price">
-        <div class="price">{{ formatPrice(item.PriceSale) }}</div>
-        <div class="price-del">{{ formatPrice(item.PriceDel) }}</div>
+        <div class="price">{{ $state.formatPrice(item.PriceSale) }}</div>
+        <div class="price-del">{{ $state.formatPrice(item.PriceDel) }}</div>
       </div>
       <div class="discount" v-if="item.Discount">
         <div class="discount-number">{{ item.Discount }}%</div>
@@ -42,7 +40,7 @@ import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide } from "vue3-carousel";
 import common from "../common/common.js";
 import msEnum from "../common/enum.js";
-import MButton from './button/MButton.vue';
+import MButton from "./button/MButton.vue";
 export default {
   name: "ProductCard",
   data() {
@@ -50,10 +48,10 @@ export default {
       msEnum: msEnum,
     };
   },
-  components:{
+  components: {
     Carousel,
     Slide,
-    MButton
+    MButton,
   },
   props: {
     item: Object,
@@ -83,22 +81,21 @@ export default {
           breakpoints: "breakpoints",
           wrapAround: "true",
           autoplay: 1000,
-          transition : 1000,
+          transition: 1000,
           pauseAutoplayOnHover: true,
         },
       };
     },
   },
   methods: {
-    formatPrice(price) {
-      return common.formatPrice(price);
-    },
     getColor(enumColor) {
       return common.getColor(enumColor);
     },
-    addToCart(){
-      this.$router.push("/products/"+ this.item.ProductId);
-    }
+    addToCart() {
+      this.$router.push("/products/" + this.item.ProductId).then(() => {
+        window.scrollTo(0, 0);
+      });
+    },
   },
 };
 </script>

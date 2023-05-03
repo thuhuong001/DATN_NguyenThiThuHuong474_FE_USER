@@ -8,7 +8,7 @@ const state = reactive({
   user: null,
   isHeaderAndFooterShow: true,
   isShowLogin: false,
-  cartNumber : 0,
+  cartNumber: localStorage.getItem("cartNumber"),
   /**
    * Mảng chứa các toast message
    */
@@ -23,13 +23,11 @@ const state = reactive({
     me.$state.toastMessage.unshift(msg);
     if (this.timeout) clearTimeout(this.timeout);
     setTimeout(() => {
-      me.$state.toastMessage.splice(me.$state.toastMessage.length - 1, 1);
+      me.$state.toastMessage.splice(0, 1);
       clearTimeout();
-    }, 4000);
+    }, 2000);
   },
   setUser(user) {
-    // eslint-disable-next-line no-debugger
-    debugger
     // const encodedUser = window.btoa(JSON.stringify(user));
     localStorage.setItem("user", JSON.stringify(user));
     this.user = user;
@@ -46,6 +44,13 @@ const state = reactive({
     } catch (error) {
       localStorage.removeItem("token");
     }
+  },
+  formatPrice(price) {
+    if (!price) return "";
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(price);
   },
   isMask() {
     this.isLoadding = true;

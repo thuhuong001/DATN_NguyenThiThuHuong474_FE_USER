@@ -121,11 +121,22 @@ export default {
         if(!res.ErrorCode){
           localStorage.setItem('token', res.Data.Token);
           this.$state.setUser(res.Data.Customer);
-          window.location("/");
+          this.$router.push("/");
         }
         this.$state.unMask();
       } catch (error) {
         console.log(error);
+        var res = error?.response?.data;
+        // Kiểm tra lỗi validate
+        if (res?.ErrorCode == msEnum.ERROR_RESPONSE.BADREQUEST) {
+          for (const key in res.MoreInfo) {
+            this.errorMsgObject[key] = res.MoreInfo[key];
+            this.errorMessage = res.MoreInfo[key];
+            this.firstInputNameError = key;
+            this.errorMsgObjectInput = this.errorMsgObject;
+            return;
+          }
+        }
         this.$state.unMask();
       }
     },
