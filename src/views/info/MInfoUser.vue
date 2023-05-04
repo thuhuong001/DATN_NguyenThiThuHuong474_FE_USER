@@ -2,9 +2,9 @@
     <div class="u-info-user">
         <div class="info-left">
             <div class="title">
-                <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt="">
+                <img src="" alt="">
                 <div class="title-info">
-                    Nguyễn Văn Dương
+                    Nguyễn Thị Thu Hường
                 </div>
             </div>
             <ul class="info-list-tab">
@@ -25,15 +25,15 @@
                 <div class="form-info">
                     <div class="control-input">
                         <label for="">Họ và tên : </label>
-                        <input type="text" value="Nguyễn Văn Dương"> 
+                        <input type="text" value="Nguyễn Thị Thu Hường"> 
                     </div>
                     <div class="control-input">
                         <label for="">Email : </label>
-                        <input type="text" value="duongvipro2k1@gmail.com"> 
+                        <input type="text" value="thuhuong@gmail.com"> 
                     </div>
                     <div class="control-input">
                         <label for="">Số điện thoại : </label>
-                        <input type="text" value="0328669614"> 
+                        <input type="text" value="0867652293"> 
                     </div>
                 </div>
             </div>

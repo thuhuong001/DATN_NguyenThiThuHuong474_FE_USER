@@ -14,8 +14,8 @@
     <div class="p-card-content">
       <div class="title truncate_two-row">{{ item.ProductName }}</div>
       <div class="proloop-price">
-        <div class="price">{{ $state.formatPrice(item.PriceSale) }}</div>
         <div class="price-del">{{ $state.formatPrice(item.PriceDel) }}</div>
+        <div class="price">{{ $state.formatPrice(item.PriceSale) }}</div>
       </div>
       <div class="discount" v-if="item.Discount">
         <div class="discount-number">{{ item.Discount }}%</div>

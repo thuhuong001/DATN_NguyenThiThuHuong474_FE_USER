@@ -219,7 +219,7 @@ export default {
 .summary-total span {
   font-weight: bold;
   float: right;
-  color: red;
+  color: #c92027;
   font-size: 24px;
 }
 .summary-action {
@@ -241,7 +241,7 @@ export default {
 }
 .summary-button {
   display: block;
-  background: red;
+  background: #c27c2c;
   color: #fff;
   text-decoration: none;
   text-transform: uppercase;

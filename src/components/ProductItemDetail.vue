@@ -104,7 +104,7 @@
         <button @click="addToCart">
           <span>Thêm vào giỏ</span>
         </button>
-        <button class="btnred">
+        <button class="btnbuy">
           <span @click="toCart()">Mua ngay</span>
         </button>
       </div>
@@ -345,7 +345,7 @@ export default {
 .product-price-new {
   font-size: 25px;
   font-weight: 600;
-  color: red;
+  color: #c92027;
 }
 .product-color {
   display: flex;
@@ -513,9 +513,9 @@ export default {
     border 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
 }
 
-.addcart-area button.btnred {
-  background-color: #ff0000;
-  border-color: #ff0000;
+.addcart-area button.btnbuy {
+  background-color: #c27c2c;
+  border-color: #c27c2c;
   float: right;
 }
 

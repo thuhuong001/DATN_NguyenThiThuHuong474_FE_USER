@@ -4,9 +4,9 @@
 .homepage-slider > img{
     height: 100%;
 }
-.banber{
-    margin: 20px 0;
-    height: 300px;
+.banner{
+    /* margin: 20px 0;
+    height: 300px; */
 }
 .promotion-over{
     width: 100%;
@@ -51,8 +51,13 @@
 }
 .list-product-title{
     padding: 8px;
-    font-size: 16px;
+    font-size: 25px;
     font-weight: bold;
+}
+
+.list-product p{
+    padding: 8px;
+    font-size: 16px;
 }
 .view-products{
     text-align: center;

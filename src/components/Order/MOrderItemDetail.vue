@@ -39,11 +39,10 @@
     <div class="order-item-detail-info">
       <div class="info-address">
         <h5>Địa Chỉ Nhận Hàng</h5>
-        <h6>Nguyễn Văn Dương</h6>
-        <div>(+84) 328669614</div>
+        <h6>Nguyễn Thị Thu Hường</h6>
+        <div>(+84) 867652293</div>
         <div>
-          92/80 Ngõ 80 Xuân Phương Tu Hoàng, Phường Phương Canh, Quận Nam Từ
-          Liêm, Hà Nội
+          47 Nhân Hòa, Nhân chính, Thanh Xuân, Hà Nội
         </div>
       </div>
       <div class="info-product">
@@ -113,7 +112,7 @@ export default {
             ImageId: "26ab4b7a-1b62-4918-a5ec-d4f9350acad7",
             ImageName: "Mau.PNG",
             ImageLink:
-              "http://res.cloudinary.com/dqywrcgrr/image/upload/v1681464239/26ab4b7a-1b62-4918-a5ec-d4f9350acad7.png",
+              "http://res.cloudinary.com/drcxu9mfu/image/upload/v1683124652/b8a69707-4803-4550-8a32-6065fd89faa8.webp",
             ObjectId: "00000000-0000-0000-0000-000000000000",
             IsDefault: 0,
           },
@@ -121,7 +120,7 @@ export default {
             ImageId: "624980d5-8a8e-42be-9345-a5029cdd882e",
             ImageName: "XanhThan.PNG",
             ImageLink:
-              "http://res.cloudinary.com/dqywrcgrr/image/upload/v1681464242/624980d5-8a8e-42be-9345-a5029cdd882e.png",
+              "http://res.cloudinary.com/drcxu9mfu/image/upload/v1683124652/b8a69707-4803-4550-8a32-6065fd89faa8.webp",
             ObjectId: "00000000-0000-0000-0000-000000000000",
             IsDefault: 0,
           },

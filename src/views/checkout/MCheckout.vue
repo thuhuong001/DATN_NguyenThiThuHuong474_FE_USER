@@ -1,9 +1,7 @@
 <template>
   <div class="checkout">
     <div class="checkout-address">
-      <a href="/"
-        ><img src="/img/logo.2fdf4e31.webp" alt="" class="img-checkout"
-      /></a>
+
       <FolderRoutes :folderRoutes="folderRoutes" />
       <h3 class="method-title">Thông tin giao hàng</h3>
       <div class="combo-select">
@@ -69,6 +67,7 @@
           rows="2"
           class="form-control"
           v-model="formCheckout.Note"
+          placeholder="Nếu bạn có yêu cầu nào khác khi nhận hàng, xin hãy nhập ở đây"
         ></textarea>
       </div>
       <div class="shipping-method">

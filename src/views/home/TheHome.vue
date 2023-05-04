@@ -30,11 +30,14 @@
         </Carousel>
       </div>
     </div>
-    <div class="banber">
+    <div class="banner">
       <img src="../../assets/img/banner/banner-1.webp" alt="" />
     </div>
     <div class="list-product">
-      <div class="list-product-title">Sản phẩm mới nhất</div>
+      <div class="list-product-title">
+        Sản phẩm mới nhất
+      </div>
+      <p>Các sản phẩm bắt nhịp quốc tế, nàng thời thượng không nên bỏ lỡ</p>
       <Carousel
         :settings="config.settingsProduct"
         :breakpoints="config.breakpointsProducts"
@@ -44,8 +47,8 @@
         </Slide>
       </Carousel>
     </div>
-    <div class="banber">
-      <img src="../../assets/img/banner/banner-1.webp" alt="" />
+    <div class="banner">
+      <img src="../../assets/img/banner/banner-2.webp" alt="" />
     </div>
     <div class="list-product">
       <div class="list-product-title">Sản phẩm bán chạy</div>

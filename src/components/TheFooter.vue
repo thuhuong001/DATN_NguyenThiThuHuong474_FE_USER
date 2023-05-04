@@ -86,7 +86,7 @@
                 <a href="#!" class="text-reset"><strong>Hotline CSKH: </strong>024.7300.8888</a>
               </p>
               <p>
-                <a href="#!" class="text-reset"><strong>Email: </strong>cskh@MoonShop.vn</a>
+                <a href="#!" class="text-reset"><strong>Email: </strong>cskh@moonshop.vn</a>
               </p>
             </MDBCol>
             <!-- Grid column -->
@@ -96,16 +96,13 @@
               <!-- Links -->
               <h6 class="text-uppercase fw-bold mb-4">Hỗ trợ Khách hàng</h6>
               <li class="sp-item">
-                <a href="#!" class="text-reset">Giới thiệu & Liên hệ</a>
+                <a href="#!" class="text-reset">Hướng dẫn chọn cỡ giày</a>
               </li>
               <li class="sp-item">
-                <a href="#!" class="text-reset">Hướng dẫn mua hàng</a>
+                <a href="#!" class="text-reset">Chính sách đổi trả</a>
               </li>
               <li class="sp-item">
-                <a href="#!" class="text-reset">HD thanh toán bằng VNPAY</a>
-              </li>
-              <li class="sp-item">
-                <a href="#!" class="text-reset">Hướng dẫn chọn Size</a>
+                <a href="#!" class="text-reset">Thanh toán giao nhận</a>
               </li>
               <li class="sp-item">
                 <a href="#!" class="text-reset">Chính sách bảo mật</a>
@@ -132,11 +129,11 @@
               </p>
               <p>
                 <MDBIcon icon="phone" class="me-3 link-secondary" />
-                + 0867 652 293
+                + 84867 652 293
               </p>
               <p>
                 <MDBIcon icon="print" class="me-3 link-secondary" />
-                + 0867 652 293
+                + 84867 652 293
               </p>
             </MDBCol>
             <!-- Grid column -->
@@ -185,7 +182,7 @@ export default {
   color: black !important;
 }
 .bg-light {
-  background-color: #eeb6b6 !important;
+  background-color: #e2dddd !important;
 }
 .link-secondary {
   color: black !important;
@@ -196,7 +193,7 @@ export default {
   margin-top: 12px;
 }
 .sp-item:hover {
-  color: rgb(57, 252, 128);
+  color: #c27c2c;
 }
 .text-reset{
   font-size: 14px;

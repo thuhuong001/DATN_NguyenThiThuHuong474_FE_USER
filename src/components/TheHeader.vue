@@ -132,7 +132,7 @@
             />
             <div>Không có sản phẩm trong giỏ hàng</div>
           </div> 
-          <m-button backgroundColor="#ff0000" width="100%" @click="rediricCart" v-if="$state.cartNumber != 0"
+          <m-button backgroundColor="#c27c2c" width="100%" @click="rediricCart" v-if="$state.cartNumber != 0"
             >Xem giỏ hàng</m-button
           >
         </div>
