@@ -59,30 +59,43 @@
       <m-input classIcon="icon-search" placeholder="Tìm kiếm đơn hàng" />
     </div>
     <div class="order-tab-item">
-      <m-order-item :item="item" />
-      <m-order-item :item="item" />
-      <m-order-item :item="item" />
+      <m-order-item v-for="order,index in orders" :key="index" :item="order" @show-detail="showOrderDetail" />
     </div>
   </div>
+  <m-order-item-detail :isShow="showDetail" :OrderId="OrderId"  @close="showDetail = fasle" />
 </template>
 <script>
 import MInput from "@/components/input/MInput.vue";
-import enumD from "@/common/enum";
+import enumH from "@/common/enum";
 import MOrderItem from "@/components/Order/MOrderItem.vue";
+import baseApi from '@/api/baseApi';
+import MOrderItemDetail from '@/components/Order/MOrderItemDetail.vue';
 export default {
   name: "MOrderProfile",
   components: {
     MInput,
     MOrderItem,
+    MOrderItemDetail
   },
   props: {
     isShow: Boolean,
 
     hidden: Boolean,
   },
+  created: async function(){
+    try {
+      // eslint-disable-next-line no-debugger
+      debugger
+      const res = await new baseApi("Order").getByFilter({});
+      console.log(res);
+      this.orders = res.Data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
   data() {
     return {
-      enumStatus: enumD.enumStatusOrder,
+      enumStatus: enumH.enumStatusOrder,
       tabActive: 0,
       item: {
         CartId: "6a4c1adb-db0c-45aa-bdc2-e4f98dfae952",
@@ -148,12 +161,20 @@ export default {
         ObjectId: "00000000-0000-0000-0000-000000000000",
         IsDefault: 0,
       },
+      showDetail : false,
+      OrderId : null,
+      orders :[]
     };
   },
+
   methods: {
     changeTab(tab) {
       this.tabActive = tab;
     },
+    showOrderDetail(id){
+      this.OrderId = id;
+      this.showDetail = true;
+    }
   },
 };
 </script>

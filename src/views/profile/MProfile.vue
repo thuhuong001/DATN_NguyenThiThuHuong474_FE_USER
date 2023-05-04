@@ -19,16 +19,13 @@
             </div>
         </div>
         <div class="profile-right">
-            <m-info-user :hidden="showDetail" :isShow="tabProfile == 1 ? true : false" />
-            <m-address-user  :hidden="showDetail" :isShow="tabProfile == 2 ? true : false" />
-            <m-order-profile :hidden="showDetail" :isShow="tabProfile == 3 ? true : false" />
-
-            <m-order-item-detail :isShow="showDetail" @close="showDetail = fasle" />
+            <m-info-user  :isShow="tabProfile == 1 ? true : false" />
+            <m-address-user   :isShow="tabProfile == 2 ? true : false" />
+            <m-order-profile  :isShow="tabProfile == 3 ? true : false" />
         </div>
     </div>
 </template>
 <script>
-import MOrderItemDetail from '@/components/Order/MOrderItemDetail.vue'
 import MAddressUser from './MAddressUser.vue'
 import MInfoUser from './MInfoUser.vue'
 import MOrderProfile from './MOrderProfile.vue'
@@ -38,13 +35,11 @@ export default {
         MInfoUser,
         MAddressUser,
         MOrderProfile,
-        MOrderItemDetail
     },
     data() {
         return {
             tabProfile : 1,
-            tabInfoStyle : true,
-            showDetail : true
+            tabInfoStyle : true
         }
     },
     methods:{

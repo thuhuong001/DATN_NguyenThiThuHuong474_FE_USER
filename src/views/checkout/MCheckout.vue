@@ -236,7 +236,7 @@ export default {
       Districts: [],
       Wards: [],
       ShippingMethod: "1",
-      paymentMethod: 0,
+      paymentMethod: enumH.paymentMethod.TTKLH,
       shipments: [],
       enumPayment: enumH.paymentMethod,
       folderRoutes: [
@@ -326,4 +326,8 @@ export default {
 </script>
 <style scoped>
 @import url(./checkout.css);
+textarea::placeholder{
+  font-size: 12px;
+  font-style: italic;
+}
 </style>

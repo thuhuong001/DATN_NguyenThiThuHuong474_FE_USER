@@ -127,4 +127,12 @@ export default {
 
 <style scoped>
 @import url(./input.css);
+.m-input-component{
+  display:flex;
+  align-items: center;
+  position: relative;
+}
+.m-input-main{
+  position: absolute;
+}
 </style>

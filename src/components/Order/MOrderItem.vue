@@ -1,29 +1,23 @@
 <template>
-  <div class="order-main-item">
+  <div class="order-main-item" @click="showDetailOrder">
     <div class="top">
       <div class="status-title">HOÀN THÀNH</div>
     </div>
-    <div class="order-item" >
-      <div class="media-leff">
-        <div
-          class="item-img"
-        >
-          <img :src="item.Images[0].ImageLink" alt="" />
-          <div class="item-quantity">1</div>
-        </div>
-      </div>
+    <div class="order-item">
       <div class="media-right">
         <div class="item-info">
-          <h3 class="item--title">
-            {{ item.ProductName }}
-          </h3>
+          <div class="status-title"></div>
+          <h3 class="item--title">Mã đơn hàng : {{ item.OrderCode }}</h3>
           <div class="item--variant">
-            <span>{{ item.ColorName + " / " + item.SizeNumber }}</span>
+            <span>Số lượng : {{ item.TotalAmount }}</span>
+          </div>
+          <div class="item--variant">
+            <span>Hình thức thanh toán : {{ item.ShipmentName }}</span>
           </div>
         </div>
         <div class="item-price">
           <p>
-            <span>{{ $state.formatPrice(item.PriceDel) }}</span>
+            <span>Ngày mua : {{ $state.formatDate(item.CreatedAt) }}</span>
           </p>
         </div>
       </div>
@@ -52,7 +46,11 @@ export default {
   data() {
     return {};
   },
-  created() {},
+  methods: {
+    showDetailOrder(){
+      this.$emit("show-detail",this.item.OrderId);
+    }
+  },
 };
 </script>
 <style scoped>
