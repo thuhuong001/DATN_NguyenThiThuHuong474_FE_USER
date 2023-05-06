@@ -3,7 +3,7 @@
     <div class="media-leff">
       <div class="item-img">
         <img
-          :src="item.Images[0].ImageLink"
+          :src="item.ImageLink"
           alt=""
         />
         <div class="item-remove">{{item.Quantity}}</div>
@@ -15,10 +15,14 @@
           {{item.ProductName}}
         </h3>
         <div class="item--variant"><span>{{item.ColorName}} / {{item.SizeNumber}}</span></div>
+        <div class="proloop-price">
+            <div class="price-del">{{ $state.formatPrice(item.PriceDel) }}</div>
+            <div class="price">{{ $state.formatPrice(item.PriceSale) }}</div>
+        </div>
       </div>
     </div>
     <div class="media-total">
-      <span>{{$state.formatPrice(item.TotalPrice)}}</span>
+      <span>{{$state.formatPrice(item.PriceDel * item.Quantity)}}</span>
     </div>
   </div>
 </template>

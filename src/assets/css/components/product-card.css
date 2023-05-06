@@ -36,6 +36,13 @@
     font-weight: bold;
     font-size: 17px;
 }
+.sold{
+    margin-right: 4px;
+    color: black;
+    font-size: 12px;
+    text-align: right;
+    font-style: italic;
+}
 .discount{
     position: absolute;
     top: 0;

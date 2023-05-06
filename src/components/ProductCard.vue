@@ -17,6 +17,7 @@
         <div class="price-del">{{ $state.formatPrice(item.PriceDel) }}</div>
         <div class="price">{{ $state.formatPrice(item.PriceSale) }}</div>
       </div>
+      <div class="sold"> Đã bán: {{ item.Sold}}</div>
       <div class="discount" v-if="item.Discount">
         <div class="discount-number">{{ item.Discount }}%</div>
         <div class="discount-title">Giảm</div>

@@ -1,18 +1,19 @@
 <template>
   <div class="order-main-item" @click="showDetailOrder">
     <div class="top">
-      <div class="status-title">HOÀN THÀNH</div>
+      <div class="item--title">Mã đơn hàng : {{ item.OrderCode }}</div>
+      <div class="status-title">{{getTitleStatusOrder(item.Status)}}</div>
     </div>
     <div class="order-item">
       <div class="media-right">
         <div class="item-info">
           <div class="status-title"></div>
-          <h3 class="item--title">Mã đơn hàng : {{ item.OrderCode }}</h3>
+          
           <div class="item--variant">
             <span>Số lượng : {{ item.TotalAmount }}</span>
           </div>
           <div class="item--variant">
-            <span>Hình thức thanh toán : {{ item.ShipmentName }}</span>
+            <span>Phương thức thanh toán : {{ getPaymentMethod(item.PaymentMethod) }}</span>
           </div>
         </div>
         <div class="item-price">
@@ -35,6 +36,7 @@
   </div>
 </template>
 <script>
+import common from "@/common/common";
 import MButton from "../button/MButton.vue";
 export default {
   props: {
@@ -49,11 +51,25 @@ export default {
   methods: {
     showDetailOrder(){
       this.$emit("show-detail",this.item.OrderId);
-    }
+    },
+    getPaymentMethod(paymentMethod){
+      return common.getPaymentMethod(paymentMethod);
+    },
+    getTitleStatusOrder(status){
+      return common.getTitleStatusOrder(status);
+    },
   },
 };
 </script>
 <style scoped>
+.top{
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 24px;
+    background-color: white;
+    border-radius: 0 0 8px 8px;
+    position: relative;
+}
 .status-title {
   color: var(--color-btn-primary);
   font-weight: 500;

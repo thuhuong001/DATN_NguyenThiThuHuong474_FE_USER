@@ -5,7 +5,7 @@ import constants from "./constants";
 msEnum
 const common = {
     formatPrice(price){
-        if(!price) return '';
+        if(!price) return "";
         return  new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
     },
     getColor(enumColor){
@@ -14,6 +14,17 @@ const common = {
             case msEnum.enumColor.blue : return 'blue';
             case msEnum.enumColor.white : return 'white';
         }
+    },
+    
+    getPaymentMethod(paymentMethod){
+      switch (paymentMethod) {
+        case msEnum.paymentMethod.OFFLINE:
+          return 'Thanh toán khi nhận hàng';
+        case msEnum.paymentMethod.ONLINE:
+          return 'Thanh toán trực tuyến';
+        default:
+          break;
+      }
     },
     /**
    * Format date (DD/MM/YYYY)
@@ -36,6 +47,26 @@ const common = {
       return "";
     } catch (error) {
       return "";
+    }
+  },
+  getTitleStatusOrder(status) {
+    // eslint-disable-next-line no-debugger
+    debugger
+    switch (status) {
+      case msEnum.enumStatusOrder.ChoXacNhan:
+        return "Chờ xác nhận";
+      case msEnum.enumStatusOrder.DaXacNhan:
+        return "Đã xác nhận";
+      case msEnum.enumStatusOrder.DangGiao:
+        return "Đang giao";
+      case msEnum.enumStatusOrder.DaNhanHang:
+        return "Đã nhận hàng";
+      case msEnum.enumStatusOrder.HoanThanh:
+        return "Hoàn thành";
+      case msEnum.enumStatusOrder.DaHuy:
+        return "Đã hủy";
+      case msEnum.enumStatusOrder.TraHang:
+        return "Trả hàng";
     }
   },
     /**
@@ -84,6 +115,6 @@ const common = {
       }
     }
   },
-}
+};
 
 export default common;

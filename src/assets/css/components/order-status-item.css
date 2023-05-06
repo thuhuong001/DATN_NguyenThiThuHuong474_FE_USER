@@ -4,12 +4,8 @@
     padding: 12px 24px;
     background-color: white;
     border-radius: 0 0 8px 8px;
+    position: relative;
 }
-
-
-
-
-
 .progressbar{
     display: flex;
     justify-content: space-between;

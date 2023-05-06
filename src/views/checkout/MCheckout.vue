@@ -154,16 +154,6 @@
         :key="index"
         :item="cart"
       />
-      <!-- <hr />
-      <label for="discount-code" class="lb-discount-code">Mã giảm giá</label>
-      <div class="form__row" style="width: 100%">
-        <div class="form__row f-bw" style="width: 60%">
-          <input type="text" id="discount-code" class="m-input discount-code" />
-        </div>
-        <div class="form__row f-bw" style="width: 35%">
-          <MButton width="100%">Sử dụng</MButton>
-        </div>
-      </div> -->
       <hr />
       <div class="total-detail">
         <div class="total-detail-left">Tạm tính</div>
@@ -296,9 +286,14 @@ export default {
         this.carts.forEach((x) => {
           orderDetails.push({
             Quantity: x.Quantity,
-            PriceSale: x.PriceDel,
+            PriceDel: x.PriceDel,
+            PriceSale: x.PriceSale,
             ProductVariantId: x.ProductVariantId,
             Discount: x.Discount,
+            ImageLink : x.Images ? x.Images[0].ImageLink: '',
+            ProductName : x.ProductName,
+            ColorName : x.ColorName,
+            SizeCode : x.SizeCode,
           });
         });
         let formBody = this.formCheckout;
@@ -311,14 +306,16 @@ export default {
     },
     addProperty() {
       this.formCheckout.TotalAmount = this.totalQuantity();
-      this.formCheckout.TotalPrice = this.totalPriceProduct();
+      this.formCheckout.TotalPrice = this.totalPriceProduct() + this.getPriceShipment();
       this.formCheckout.PaymentMethod = this.paymentMethod;
-      this.formCheckout.ShipmentId = this.shipments.find(
-        (x) => x.ShipmentCode == this.ShippingMethod
-      )?.ShipmentId;
-      this.formCheckout.AddressReceiveId =
-        this.AddressReceiveDefault.AddressReceiveId;
-      this.Status = enumH.enumStatusCheckout.ChoXacNhan;
+      const shipment= this.shipments.find((x) => x.ShipmentCode == this.ShippingMethod);
+      this.formCheckout.ShipmentId = shipment.ShipmentId;
+      this.formCheckout.PriceShip = shipment.PriceShip;
+      this.formCheckout.AddressReceiveId =this.AddressReceiveDefault.AddressReceiveId;
+      this.formCheckout.Receiver = this.AddressReceiveDefault.Receiver;
+      this.formCheckout.Phone = this.AddressReceiveDefault.Phone;
+      this.formCheckout.AddressDetail = this.AddressReceiveDefault.AddressDetail;
+      this.formCheckout.Status = enumH.enumStatusCheckout.ChoXacNhan;
     },
   },
   watch: {},

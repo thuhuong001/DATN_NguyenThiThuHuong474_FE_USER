@@ -1,14 +1,14 @@
 <template>
   <div class="cart-item">
     <div class="media-leff">
-      <div class="item-img" @click="$router.push(`products/${item.ProductId}`)">
+      <div class="item-img">
         <img :src="item.Images[0].ImageLink" alt="" />
         <div class="item-remove" @click="removeCartItem">Xóa</div>
       </div>
     </div>
     <div class="media-right">
       <div class="item-info">
-        <h3 class="item--title">
+        <h3 class="item--title"  @click="$router.push(`products/${item.ProductId}`)">
           {{ item.ProductName }}
         </h3>
         <div class="item--variant">
