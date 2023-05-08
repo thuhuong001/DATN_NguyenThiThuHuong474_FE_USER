@@ -188,8 +188,9 @@ export default {
   text-align: righ;
 }
 .line-item-total {
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 600;
+  color: #c92027;
 }
 .item-total-price {
   text-align: right;

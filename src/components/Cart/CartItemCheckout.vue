@@ -3,7 +3,7 @@
     <div class="media-leff">
       <div class="item-img">
         <img
-          :src="item.ImageLink"
+          :src="item.ImageLink ?? item.Images[0].ImageLink"
           alt=""
         />
         <div class="item-remove">{{item.Quantity}}</div>
@@ -114,10 +114,14 @@ export default {
   text-align: righ;
   display: flex;
   align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: #c92027;
 }
 .line-item-total {
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 600;
+  color: #c92027;
 }
 .item-total-price{
   text-align: right;

@@ -69,19 +69,9 @@
         @click="load(2)"
       >
         Xem thêm sản phẩm
-        <b> GIẢM 50% PHỤ KIỆN THỜI TRANG </b>
+        <b> GIẢM GIÁ SỐC</b>
       </v-btn>
       </div>
-    <!-- Tin tức start-->
-    <div class="home-news">
-      <div class="list-news-title">Tin tức MoonShop</div>
-      <div class="list-news">
-          <news-item v-for="index in 6" :key="index" />
-      </div>
-      <div class="list-news-navigation">Xem các tin bài khác »</div>
-    </div>
-
-    <!-- Tin tức End -->
     <!-- Donors Start -->
     <div class="donors">
       
@@ -96,7 +86,6 @@ import { Carousel, Slide } from "vue3-carousel";
 import config from "@/config";
 import ProductCard from "@/components/ProductCard.vue";
 import { VBtn } from "vuetify/lib/components";
-import NewsItem from '@/components/NewsItem.vue';
 import baseApi from '@/api/baseApi';
 import enumH from '@/common/enum';
 export default {
@@ -105,8 +94,7 @@ export default {
     Carousel,
     Slide,
     ProductCard,
-    VBtn,
-    NewsItem
+    VBtn
   },
   created: async function() {
     this.FilterType = enumH.filterProductType.selling;

@@ -25,6 +25,7 @@
 .menu-item{
     padding: 0 20px;
     cursor: pointer;
+    font-weight: bold;
 }
 
 .action{

@@ -62,6 +62,9 @@ export default {
 };
 </script>
 <style scoped>
+.item--variant span{
+  font-size: 15px;
+}
 .top{
     display: flex;
     justify-content: space-between;
@@ -134,7 +137,7 @@ export default {
   margin-bottom: 10px;
 }
 .item--title {
-  font-size: 15px;
+  font-size: 17px;
   margin: 0px 0 2px;
   font-weight: 500;
 }
@@ -167,8 +170,9 @@ export default {
   align-items: center;
 }
 .line-item-total {
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 600;
+  color: #c92027;
 }
 .item-total-price {
   text-align: right;

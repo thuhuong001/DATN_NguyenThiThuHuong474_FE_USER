@@ -78,12 +78,17 @@
 .total-detail-right{
     font-weight: bold;
 }
+.total-detail-right-all{
+    font-weight: bold;
+    font-size: 18px;
+    color: #c92027;
+}
 .img-checkout{
     width: max-content;
     height: 50px;
 }
 .add-address{
     font-size: 12px;
-    color: #c27c2c;
+    color: #f9b31f;
     cursor: pointer;
 }

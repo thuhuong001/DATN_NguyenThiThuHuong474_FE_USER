@@ -85,8 +85,8 @@
         </div>
       </div>
       <hr />
-      <div class="view-size-guide m-b-8">
-        <a href="">Hướng dẫn chọn size</a>
+      <div class="choose-amount">
+        Chọn số lượng:
       </div>
       <div class="select-quantity">
         <button @click="quantityNumber(-1)">-</button>
@@ -315,7 +315,10 @@ export default {
   margin: 0 8px;
   border-radius: 1px solid #cac8c8;
 }
-
+.choose-amount{
+  font-size: 18px;
+  font-weight: bold;
+}
 /* item-content */
 .item-content {
   padding: 10px 24px;
@@ -514,8 +517,8 @@ export default {
 }
 
 .addcart-area button.btnbuy {
-  background-color: #c27c2c;
-  border-color: #c27c2c;
+  background-color: #fcbe38;
+  border-color: #fcbe38;
   float: right;
 }
 

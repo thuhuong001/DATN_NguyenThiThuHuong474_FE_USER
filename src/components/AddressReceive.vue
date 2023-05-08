@@ -399,11 +399,11 @@ export default {
   top: 50%;
   width: max-content;
   padding: 2px 4px;
-  border: 1px solid #c27c2c;
+  border: 1px solid #f8b016;
   cursor: pointer;
   border-radius: 4px;
   font-size: 12px;
-  color: #c27c2c;
+  color: #f9b31f;
   transform: translate(-50%, -50%);
   cursor: pointer;
 }

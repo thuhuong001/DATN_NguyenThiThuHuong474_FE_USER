@@ -4,9 +4,10 @@
       <a href="/"><img src="../assets/img/logo.webp" alt="" /></a>
     </div>
     <div class="menu">
-      <li class="menu-item">Hàng mới</li>
-      <li class="menu-item">Sản phẩm</li>
-      <li class="menu-item">Giới thiệu</li>
+      <li class="menu-item">HÀNG MỚI</li>
+      <li class="menu-item">SẢN PHẨM</li>
+      <li class="menu-item">GIẢM GIÁ</li>
+      <li class="menu-item">BÁN CHẠY</li>
     </div>
     <div class="action">
       <div class="search">
@@ -62,9 +63,6 @@
                   <div class="site_account_inner">
                     <ul>
                       <li><a href="/account/profile">Tài khoản của tôi</a></li>
-                      <li>
-                        <a href="/account/addresses">Danh sách địa chỉ</a>
-                      </li>
                       <li><a @click="logout">Đăng xuất</a></li>
                     </ul>
                   </div>
@@ -132,7 +130,7 @@
             />
             <div>Không có sản phẩm trong giỏ hàng</div>
           </div> 
-          <m-button backgroundColor="#c27c2c" width="100%" @click="rediricCart" v-if="$state.cartNumber != 0"
+          <m-button backgroundColor="#f9b31f" width="100%" @click="rediricCart" v-if="$state.cartNumber != 0"
             >Xem giỏ hàng</m-button
           >
         </div>

@@ -17,20 +17,20 @@
     >
       <title>32px_dots 06</title>
       <g class="nc-loop_dots-06-32" transform="rotate(45 16 16)">
-        <circle fill="#c27c2c" cx="16" cy="3" r="3" />
-        <circle fill="#c27c2c" cx="25.19239" cy="6.80761" r="3" opacity="0.4" />
-        <circle fill="#c27c2c" cx="29" cy="16" r="3" opacity="0.4" />
+        <circle fill="#f9b31f" cx="16" cy="3" r="3" />
+        <circle fill="#f9b31f" cx="25.19239" cy="6.80761" r="3" opacity="0.4" />
+        <circle fill="#f9b31f" cx="29" cy="16" r="3" opacity="0.4" />
         <circle
-          fill="#c27c2c"
+          fill="#f9b31f"
           cx="25.19239"
           cy="25.19239"
           r="3"
           opacity="0.4"
         />
-        <circle fill="#c27c2c" cx="16" cy="29" r="3" opacity="0.4" />
-        <circle fill="#c27c2c" cx="6.80761" cy="25.19239" r="3" opacity="0.4" />
-        <circle fill="#c27c2c" cx="3" cy="16" r="3" opacity="0.6" />
-        <circle fill="#c27c2c" cx="6.80761" cy="6.80761" r="3" opacity="0.8" />
+        <circle fill="#f9b31f" cx="16" cy="29" r="3" opacity="0.4" />
+        <circle fill="#f9b31f" cx="6.80761" cy="25.19239" r="3" opacity="0.4" />
+        <circle fill="#f9b31f" cx="3" cy="16" r="3" opacity="0.6" />
+        <circle fill="#f9b31f" cx="6.80761" cy="6.80761" r="3" opacity="0.8" />
       </g>
     </svg>
   </div>

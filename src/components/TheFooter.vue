@@ -14,7 +14,7 @@
 
         <!-- Right -->
         <div>
-          <a href="" class="me-4 text-reset">
+          <a href="https://www.facebook.com/nguyenthithuhuong2504" class="me-4 text-reset">
             <MDBIcon
               class="link-secondary"
               iconStyle="fab"
@@ -25,31 +25,10 @@
             <MDBIcon
               class="link-secondary"
               iconStyle="fab"
-              icon="twitter"
-            ></MDBIcon>
-          </a>
-          <a href="" class="me-4 text-reset">
-            <MDBIcon
-              class="link-secondary"
-              iconStyle="fab"
               icon="google"
             ></MDBIcon>
           </a>
-          <a href="" class="me-4 text-reset">
-            <MDBIcon
-              class="link-secondary"
-              iconStyle="fab"
-              icon="instagram"
-            ></MDBIcon>
-          </a>
-          <a href="" class="me-4 text-reset">
-            <MDBIcon
-              class="link-secondary"
-              iconStyle="fab"
-              icon="linkedin"
-            ></MDBIcon>
-          </a>
-          <a href="" class="me-4 text-reset">
+          <a href="https://github.com/thuhuong001" class="me-4 text-reset">
             <MDBIcon
               class="link-secondary"
               iconStyle="fab"
@@ -73,7 +52,7 @@
                 <i class="fas fa-gem me-3 link-secondary"></i>MoonShop
               </h6>
               <p>
-                MoonShop
+                "Không có phụ nữ xấu, chỉ có phụ nữ không biết làm đẹp "- Trích câu danh ngôn nổi tiếng của LaBruyere để thay lời của Moonshop - những người góp phần tôn vinh, khơi dậy vẻ đẹp phụ nữ Việt Nam.
               </p>
             </MDBCol>
             <!-- Grid column -->
@@ -88,28 +67,6 @@
               <p>
                 <a href="#!" class="text-reset"><strong>Email: </strong>cskh@moonshop.vn</a>
               </p>
-            </MDBCol>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
-            <MDBCol md="3" lg="2" xl="2" class="mx-auto mb-4">
-              <!-- Links -->
-              <h6 class="text-uppercase fw-bold mb-4">Hỗ trợ Khách hàng</h6>
-              <li class="sp-item">
-                <a href="#!" class="text-reset">Hướng dẫn chọn cỡ giày</a>
-              </li>
-              <li class="sp-item">
-                <a href="#!" class="text-reset">Chính sách đổi trả</a>
-              </li>
-              <li class="sp-item">
-                <a href="#!" class="text-reset">Thanh toán giao nhận</a>
-              </li>
-              <li class="sp-item">
-                <a href="#!" class="text-reset">Chính sách bảo mật</a>
-              </li>
-              <li class="sp-item">
-                <a href="#!" class="text-reset">Điều khoản & Dịch vụ</a>
-              </li>
             </MDBCol>
             <!-- Grid column -->
 
@@ -131,10 +88,6 @@
                 <MDBIcon icon="phone" class="me-3 link-secondary" />
                 + 84867 652 293
               </p>
-              <p>
-                <MDBIcon icon="print" class="me-3 link-secondary" />
-                + 84867 652 293
-              </p>
             </MDBCol>
             <!-- Grid column -->
           </MDBRow>
@@ -148,10 +101,7 @@
         class="text-center p-4"
         style="background-color: rgba(0, 0, 0, 0.05)"
       >
-        © 2021 Copyright:
-        <a class="text-reset fw-bold" href="https://mdbootstrap.com/"
-          >MDBootstrap.com</a
-        >
+        © 2021 Copyright: <b>THUHUONG</b>
       </div>
       <!-- Copyright -->
     </MDBFooter>
@@ -193,7 +143,7 @@ export default {
   margin-top: 12px;
 }
 .sp-item:hover {
-  color: #c27c2c;
+  color: #f9b31f;
 }
 .text-reset{
   font-size: 14px;

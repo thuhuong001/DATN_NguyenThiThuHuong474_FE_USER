@@ -241,7 +241,7 @@ export default {
 }
 .summary-button {
   display: block;
-  background: #c27c2c;
+  background: #f9b31f;
   color: #fff;
   text-decoration: none;
   text-transform: uppercase;

@@ -117,7 +117,7 @@
                 alt=""
               />
               <label for="VNPAY"
-                >Thẻ ATM/Visa/Master/JCB/QR Pay qua cổng VNPAY</label
+                >Thanh toán trực tuyến</label
               >
             </div>
           </div> -->
@@ -170,7 +170,7 @@
       <hr />
       <div class="total-detail">
         <div class="total-detail-left">Tổng cộng</div>
-        <div class="total-detail-right">
+        <div class="total-detail-right-all">
           {{ $state.formatPrice(totalPriceProduct() + getPriceShipment()) }}
         </div>
       </div>
@@ -293,7 +293,7 @@ export default {
             ImageLink : x.Images ? x.Images[0].ImageLink: '',
             ProductName : x.ProductName,
             ColorName : x.ColorName,
-            SizeCode : x.SizeCode,
+            SizeNumber : x.SizeNumber,
           });
         });
         let formBody = this.formCheckout;
@@ -315,7 +315,7 @@ export default {
       this.formCheckout.Receiver = this.AddressReceiveDefault.Receiver;
       this.formCheckout.Phone = this.AddressReceiveDefault.Phone;
       this.formCheckout.AddressDetail = this.AddressReceiveDefault.AddressDetail;
-      this.formCheckout.Status = enumH.enumStatusCheckout.ChoXacNhan;
+      this.formCheckout.Status = enumH.enumStatusOrder.ChoXacNhan;
     },
   },
   watch: {},
