@@ -226,7 +226,7 @@ export default {
       Districts: [],
       Wards: [],
       ShippingMethod: "1",
-      paymentMethod: enumH.paymentMethod.TTKLH,
+      paymentMethod: enumH.paymentMethod.OFFLINE,
       shipments: [],
       enumPayment: enumH.paymentMethod,
       folderRoutes: [
@@ -278,10 +278,7 @@ export default {
     },
     async submitCheckout() {
       try {
-        // eslint-disable-next-line no-debugger
-        debugger;
         this.addProperty();
-
         var orderDetails = [];
         this.carts.forEach((x) => {
           orderDetails.push({
@@ -299,7 +296,14 @@ export default {
         let formBody = this.formCheckout;
         formBody.OrderDetails = orderDetails;
 
-        await new baseApi("Order").create(formBody);
+        const res = await new baseApi("Order").create(formBody);
+        if(!res.ErrorCode){
+          this.$state.tabProfile = 3;
+          this.$state.OrderId = res?.Data;
+          this.$router.push("/account/profile").then(() => {
+          window.scrollTo(0, 0);
+      });
+        }
       } catch (error) {
         console.log(error);
       }

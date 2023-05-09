@@ -11,6 +11,7 @@
 }
 .p-card-content{
     padding: 8px;
+    cursor: pointer;
 }
 .title{
     font-size: 14px;

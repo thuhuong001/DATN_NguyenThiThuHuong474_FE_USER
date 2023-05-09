@@ -2,7 +2,7 @@
   <div class="wrapbox-content-account">
     <div class="userbox customers_accountForm">
       <div class="header-page">
-        <h1>Tạo tài khoản</h1>
+        <h1>Đăng ký</h1>
       </div>
       <div class="create_customer">
         <div class="errors" v-if="errors">{{ errors }}</div>

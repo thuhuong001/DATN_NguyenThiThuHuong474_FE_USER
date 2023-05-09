@@ -39,11 +39,7 @@
             <div class="site_account_secondary-action">
               <div>
                 Khách hàng mới?
-                <span @click="redirectRegister">Tạo tài khoản</span>
-              </div>
-              <div>
-                Quên mật khẩu?
-                <span @click="loginLayout = false">Khôi phục mật khẩu</span>
+                <span @click="redirectRegister">Đăng ký ngay</span>
               </div>
             </div>
           </div>
@@ -82,6 +78,7 @@
   import MInput from "./input/MInput.vue";
   import authApi from "@/api/authApi";
   import enumH from '@/common/enum';
+import cartApi from '@/api/cartApi';
   export default {
     name: "SiteAccount",
     components: {
@@ -110,24 +107,26 @@
         this.$emit("update:modelValue", false);
       },
       async signin() {
-        try {
-          const res = await new authApi().signin(this.formLogin);
-          if (!res.ErrorCode) {
-            localStorage.setItem("token", res.Data.Token);
-            this.$state.user = res.Data.Customer;
-            this.$state.setUser(res.Data.Customer);
-            this.$state.isShowLogin = false;
-          }
-          window.location.reload();
-        } catch (error) {
-          console.log(error);
-          var res = error?.response?.data;
-          // Kiểm tra lỗi validate
-          if (res?.ErrorCode == enumH.ERROR_RESPONSE.BADREQUEST) {
-            this.error = res.MoreInfo["LoginError"];
-          }
+      try {
+        const res = await new authApi().signin(this.formLogin);
+        if (!res.ErrorCode) {
+          localStorage.setItem("token", res.Data.Token);
+          this.$state.user = res.Data.Customer;
+          this.$state.setUser(res.Data.Customer);
+          this.$state.isShowLogin = false;
+          const cartNumber = await new cartApi("Cart").cartNumber();
+          this.$state.cartNumber = cartNumber?.data == 0 ? 0 : cartNumber;
+          this.$router.push("/");
         }
-      },
+      } catch (error) {
+        console.log(error);
+        var res = error?.response?.data;
+        // Kiểm tra lỗi validate
+        if (res?.ErrorCode == enumH.ERROR_RESPONSE.BADREQUEST) {
+          this.error = res.MoreInfo["LoginError"];
+        }
+      }
+    },
       clickOutSide(e) {
         this.$emit("click-outside", e);
       },

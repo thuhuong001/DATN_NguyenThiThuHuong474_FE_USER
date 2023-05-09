@@ -6,6 +6,16 @@
     border-radius: 0 0 8px 8px;
     position: relative;
 }
+.paid{
+    position: absolute;
+    width: max-content;
+    padding: 2px 4px;
+    z-index: 9;
+    top: 280px;
+    border: 2px solid #e4a622;
+    left: 83%;
+    transform: rotate(-8deg);
+}
 .progressbar{
     display: flex;
     justify-content: space-between;

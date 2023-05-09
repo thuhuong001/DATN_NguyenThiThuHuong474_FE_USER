@@ -79,14 +79,15 @@ export default {
   },
   props: {
     isShow: Boolean,
-
     hidden: Boolean,
   },
   created: async function(){
     try {
-      const res = await new baseApi("Order").getByFilter({});
-      console.log(res);
-      this.orders = res.Data;
+      await this.getData();
+      if(this.$state.OrderId){
+        this.OrderId = this.$state.OrderId;
+        this.showDetail = true;
+      }
     } catch (error) {
       console.log(error);
     }
@@ -97,19 +98,44 @@ export default {
       tabActive: 0,
       showDetail : false,
       OrderId : null,
-      orders :[]
+      orders :[],
+      textSearch: ""
     };
   },
 
   methods: {
-    changeTab(tab) {
+    async changeTab(tab) {
       this.tabActive = tab;
+      await this.getData();
     },
     showOrderDetail(id){
       this.OrderId = id;
       this.showDetail = true;
+    },
+    /**
+     * Hàm search
+     */
+    async searchData() {
+      try {
+        if (this.timeout) clearTimeout(this.timeout);
+        // Xét thời gian tìm kiếm 0,5s
+        this.timeout = setTimeout(async () => {
+        await this.getData();
+        }, 500); // delay
+      } catch (error) {
+        console.log("Lỗi search data : ", error);
+      }
+    },
+    async getData(){
+      const res =await new baseApi("Order").getByFilter({ Status : this.tabActive,TextSearch : this.textSearch });
+      this.orders = res.Data;
     }
   },
+  watch:{
+     '$state.tabProfile'(){
+        this.showDetail = false;
+     }
+  }
 };
 </script>
 <style></style>

@@ -44,3 +44,20 @@
     overflow-y: auto;
     max-height: 530px
 }
+/* Pop-up */
+/* Pop-up */
+.warning__delete-content{
+    display: flex;
+    align-items: center;
+}
+.warning__delete-content-text{
+    margin-left: 16px;
+}
+.warning__delete-btn{
+    display: flex;
+    justify-content: flex-end;
+    /* margin-top: 20px; */
+}
+.warning__delete-btn div:not(:nth-last-child(1)){
+    margin-right: 8px;
+}

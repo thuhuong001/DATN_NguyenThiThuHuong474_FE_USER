@@ -84,6 +84,7 @@
           </div>
         </div>
       </div>
+      <div class="p-quantity-detail">Số lượng : {{ sizeActive.ProductVariantQuantity }}</div>
       <hr />
       <div class="choose-amount">
         Chọn số lượng:
@@ -103,9 +104,6 @@
       <div class="addcart-area">
         <button @click="addToCart">
           <span>Thêm vào giỏ</span>
-        </button>
-        <button class="btnbuy">
-          <span @click="toCart()">Mua ngay</span>
         </button>
       </div>
       <div class="product-policy-detail">
@@ -217,7 +215,7 @@ export default {
       }
     },
     changeQuantity() {
-      if (this.quantity < 1 || this.quantity > 100000) {
+      if (this.quantity < 1 || this.quantity > 100000 || this.quantity > this.sizeActive.ProductVariantQuantity) {
         this.quantity = 1;
       }
     },
@@ -269,8 +267,7 @@ export default {
       }
     },
     async toCart() {
-      await this.addToCart();
-      this.$router.push("/cart");
+      this.$router.push("/checkout");
     },
   },
   watch: {
@@ -501,8 +498,8 @@ export default {
   padding: 12px 28px;
   line-height: normal;
   color: #fff;
-  background-color: #000000;
-  border: 1px solid #252a2b;
+  background-color: #fcbe38;
+  border: 1px solid #fcbe38;
   font-size: 13px;
   font-weight: 500;
   text-align: center;
@@ -514,12 +511,6 @@ export default {
     border 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
   transition: color 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86),
     border 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
-}
-
-.addcart-area button.btnbuy {
-  background-color: #fcbe38;
-  border-color: #fcbe38;
-  float: right;
 }
 
 .product-policy-detail {

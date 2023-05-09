@@ -4,6 +4,7 @@
       <a href="/"><img src="../assets/img/logo.webp" alt="" /></a>
     </div>
     <div class="menu">
+      <li class="menu-item"><a href="/">TRANG CHỦ</a></li>
       <li class="menu-item">HÀNG MỚI</li>
       <li class="menu-item">SẢN PHẨM</li>
       <li class="menu-item">GIẢM GIÁ</li>
@@ -222,5 +223,8 @@ export default {
 }
 .m__e-list-empty img{
   width: 100px;
+}
+.menu li a {
+  color: unset;
 }
 </style>

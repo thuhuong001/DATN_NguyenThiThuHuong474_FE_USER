@@ -6,8 +6,14 @@ import { reactive } from "vue";
 const state = reactive({
   isLogin: false,
   user: null,
+  isShowWarning: false,
+  WarningMessage : "",
+  isActiveWarning: false,
+  OrderId : null,
   isHeaderAndFooterShow: true,
   isShowLogin: false,
+  tabProfile : 1,
+  isSearch : false,
   cartNumber: localStorage.getItem("cartNumber"),
   /**
    * Mảng chứa các toast message
@@ -52,29 +58,29 @@ const state = reactive({
       currency: "VND",
     }).format(price);
   },
-     /**
+   /**
    * Format date (DD/MM/YYYY)
    */
-     formatDate(dateTime){
-      try {
-        if (dateTime) {
-          dateTime = new Date(dateTime);
-          let date =
-            dateTime.getDate() < 10
-              ? "0" + dateTime.getDate()
-              : dateTime.getDate();
-          let month =
-            dateTime.getMonth() < 9
-              ? `0${dateTime.getMonth() + 1}`
-              : dateTime.getMonth() + 1;
-          let year = dateTime.getFullYear();
-          return `${date}/${month}/${year}`;
-        }
-        return "";
-      } catch (error) {
-        return "";
+   formatDate(dateTime){
+    try {
+      if (dateTime) {
+        dateTime = new Date(dateTime);
+        let date =
+          dateTime.getDate() < 10
+            ? "0" + dateTime.getDate()
+            : dateTime.getDate();
+        let month =
+          dateTime.getMonth() < 9
+            ? `0${dateTime.getMonth() + 1}`
+            : dateTime.getMonth() + 1;
+        let year = dateTime.getFullYear();
+        return `${date}/${month}/${year}`;
       }
-    },
+      return "";
+    } catch (error) {
+      return "";
+    }
+  },
   isMask() {
     this.isLoadding = true;
   },
