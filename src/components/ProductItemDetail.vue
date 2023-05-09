@@ -210,7 +210,7 @@ export default {
     },
     quantityNumber(qty) {
       var number = this.quantity + qty;
-      if (number > 0) {
+      if (number > 0 && number <= this.sizeActive.ProductVariantQuantity) {
         this.quantity = number;
       }
     },

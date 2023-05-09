@@ -103,14 +103,14 @@
       <div class="payment-methods">
         <h3 class="method-title">Phương thức thanh toán</h3>
         <div class="method-list">
-          <!-- <div class="method-item">
+          <div class="method-item">
             <div class="method-left">
               <input
                 type="radio"
-                name="method"
+                name="payment-methods"
                 id="VNPAY"
-                :value="enumPayment.TTKLH"
-                v-model="ShippingPayment"
+                :value="enumPayment.ONLINE"
+                v-model="paymentMethod"
               />
               <img
                 src="https://hstatic.net/0/0/global/design/seller/image/payment/cod.svg?v=4"
@@ -120,14 +120,14 @@
                 >Thanh toán trực tuyến</label
               >
             </div>
-          </div> -->
+          </div>
           <div class="method-item">
             <div class="method-left">
               <input
                 type="radio"
                 name="payment-methods"
                 id="COD"
-                :value="enumPayment.TTKLH"
+                :value="enumPayment.OFFLINE"
                 v-model="paymentMethod"
                 checked
               />
@@ -295,14 +295,20 @@ export default {
         });
         let formBody = this.formCheckout;
         formBody.OrderDetails = orderDetails;
-
-        const res = await new baseApi("Order").create(formBody);
+        if(this.paymentMethod === enumH.paymentMethod.ONLINE){
+          this.$router.push("/pvcombank/login").then(() => {
+          window.scrollTo(0, 0);
+      });
+        }else{
+          const res = await new baseApi("Order").create(formBody);
         if(!res.ErrorCode){
           this.$state.tabProfile = 3;
           this.$state.OrderId = res?.Data;
           this.$router.push("/account/profile").then(() => {
           window.scrollTo(0, 0);
       });
+        }
+        
         }
       } catch (error) {
         console.log(error);

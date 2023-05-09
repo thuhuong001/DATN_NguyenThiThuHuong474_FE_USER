@@ -2,61 +2,61 @@
   <div
     class="order-profile"
     v-if="isShow && !showDetail"
-    :style="{ display: hidden ? 'none' : 'unset' }"
+    :style="{ display: hidden || showDetail ? 'none' : 'unset' }"
   >
     <div class="order-status">
       <div
         class="status-item"
-        :class="tabActive == enumStatus.TatCa ? 'active' : ''"
+        :class="{active : tabActive == enumStatus.TatCa}"
         @click="changeTab(enumStatus.TatCa)"
       >
         Tất cả
       </div>
       <div
         class="status-item"
-        :class="tabActive == enumStatus.ChoXacNhan ? 'active' : ''"
+        :class="{active : tabActive == enumStatus.ChoXacNhan}"
         @click="changeTab(enumStatus.ChoXacNhan)"
       >
         Chờ xác nhận
       </div>
       <div
         class="status-item"
-        :class="tabActive == enumStatus.DangGiao ? 'active' : ''"
-        @click="changeTab(enumStatus.DangGiao)"
+        :class="{active : tabActive == enumStatus.DaXacNhan}"
+        @click="changeTab(enumStatus.DaXacNhan)"
       >
-        Đang giao
+        Chờ lấy hàng
       </div>
       <div
         class="status-item"
-        :class="tabActive == enumStatus.DaNhanHang ? 'active' : ''"
+        :class="{active : tabActive == enumStatus.DangGiao}"
+        @click="changeTab(enumStatus.DangGiao)"
+      >
+        Đang vận chuyển
+      </div>
+      <div
+        class="status-item"
+        :class="{active : tabActive == enumStatus.DaNhanHang}"
         @click="changeTab(enumStatus.DaNhanHang)"
       >
         Đã nhận hàng
       </div>
       <div
         class="status-item"
-        :class="tabActive == enumStatus.HoanThanh ? 'active' : ''"
+        :class="{active : tabActive == enumStatus.HoanThanh}"
         @click="changeTab(enumStatus.HoanThanh)"
       >
         Hoàn thành
       </div>
       <div
         class="status-item"
-        :class="tabActive == enumStatus.DaHuy ? 'active' : ''"
+        :class="{active : tabActive == enumStatus.DaHuy}"
         @click="changeTab(enumStatus.DaHuy)"
       >
         Đã hủy
       </div>
-      <div
-        class="status-item"
-        :class="tabActive == enumStatus.TraHang ? 'active' : ''"
-        @click="changeTab(enumStatus.TraHang)"
-      >
-        Trả hàng
-      </div>
     </div>
     <div class="order-search">
-      <m-input classIcon="icon-search" placeholder="Tìm kiếm đơn hàng" />
+      <m-input classIcon="icon-search" v-model="textSearch" @update:modelValue="searchData" placeholder="Tìm kiếm đơn hàng" />
     </div>
     <div class="order-tab-item">
       <m-order-item v-for="order,index in orders" :key="index" :item="order" @show-detail="showOrderDetail" />

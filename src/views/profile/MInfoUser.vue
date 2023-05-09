@@ -5,7 +5,7 @@
     <hr />
     <div class="profile-body">
       <div class="form-profile">
-        <MInputV2 v-model="user.FullName" textField="Họ và tên :" :absoluteLeftInput="120"/>
+        <MInputV2 v-model="user.FullName" textField="Họ và tên :" :absoluteLeftInput="120" marginBottom="24px"/>
         <MInputV2 v-model="user.Email" textField="Email :" :absoluteLeftInput="120" isReadonly />
         <MInputV2  v-model="user.Phone" textField="Số điện thoại :" :absoluteLeftInput="120" />
         <div class="my-profile-save">

@@ -5,6 +5,7 @@ import TheCart from "@/views/TheCart.vue";
 import MRegister from "@/views/account/MRegister";
 import MCheckout from "@/views/checkout/MCheckout.vue";
 import MProfile from "@/views/profile/MProfile.vue";
+import MPvCombank from "@/views/pvcombank/MPvCombank.vue"
 
 
 /**
@@ -39,6 +40,10 @@ const routes = [
    path: "/checkout",
     component:MCheckout,
  },
+ {
+   path: "/pvcombank/login",
+   component: MPvCombank,
+ }
 ];
 
 export default routes;
