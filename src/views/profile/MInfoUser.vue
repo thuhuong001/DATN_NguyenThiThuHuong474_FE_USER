@@ -79,6 +79,7 @@ export default {
 .my-profile {
   padding: 24px;
   background-color: white;
+  height: 500px;
 }
 .my-profile h5 {
   margin: 0;

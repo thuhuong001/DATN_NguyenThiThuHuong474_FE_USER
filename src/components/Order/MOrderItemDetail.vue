@@ -59,6 +59,8 @@
         <div>
           {{ order.AddressDetail }}
         </div>
+          <h5>Ghi chú:</h5>
+          <div>{{ order.Note }}</div>
       </div>
       <div class="info-product">
         <cart-item-checkout
