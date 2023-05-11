@@ -42,7 +42,8 @@ export default {
     if(id){
       this.product = await new baseApi("Product").getByIdDetail(id);
       const res = await new baseApi("Product").getByFilterDetail({
-        TypeId : this.product.TypeId
+        TypeId : this.product.TypeId,
+        BrandId : this.product.BrandId
       });
       this.config.productRelated = res.Data;
       this.folderRoutes[1].title = this.product ? this.product.ProductName : "";

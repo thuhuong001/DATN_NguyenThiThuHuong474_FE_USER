@@ -256,9 +256,9 @@ export default {
             const cartNumber = await new cartApi("Cart").cartNumber();
             this.$state.cartNumber = cartNumber?.data == 0 ? 0 : cartNumber;
           }
-          this.$state.toastMessage.unshift(
+          this.$state.addToastMessage(this,
             resources.vi.TOAST_MESSAGE.SUCCESS("Thêm sản phẩm vào giỏ")
-          );
+            );
         }
       } catch (error) {
         console.log(error);

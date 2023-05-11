@@ -2,8 +2,8 @@
   <div class="product-all">
     <div class="filter-product">
       <div class="filter-search">
-        <label for="">Tìm kiếm : </label>
-        <MInput placeholder="Tim kiếm theo tên sản phẩm" />
+        <!-- <label for="">Tìm kiếm : </label>
+        <MInput placeholder="Tim kiếm theo tên sản phẩm" /> -->
       </div>
       <div class="filter-cbb">
         <div class="filter-cbb-item">
@@ -41,13 +41,11 @@
 import baseApi from "@/api/baseApi";
 import ProductCard from "@/components/ProductCard.vue";
 import { VBtn } from "vuetify/lib/components";
-import MInput from "@/components/input/MInput.vue";
 import MCombobox from "@/components/combobox/MCombobox.vue";
 export default {
   components: {
     ProductCard,
     VBtn,
-    MInput,
     MCombobox,
   },
   created: async function () {

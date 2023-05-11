@@ -6,9 +6,9 @@
     <div class="menu">
       <li class="menu-item"><a href="/">TRANG CHỦ</a></li>
       <li class="menu-item"><a href="/products">SẢN PHẨM</a></li>
-      <li class="menu-item">HÀNG MỚI</li>
-      <li class="menu-item">GIẢM GIÁ</li>
-      <li class="menu-item">BÁN CHẠY</li>
+      <li class="menu-item" ><a href="/products">HÀNG MỚI</a></li>
+      <li class="menu-item"><a href="/products">GIẢM GIÁ</a></li>
+      <li class="menu-item"><a href="/products">BÁN CHẠY</a></li>
     </div>
     <div class="action">
       <div class="search" @click="$state.isSearch = true">

@@ -342,6 +342,8 @@ export default {
     },
     async checkoutOnline(e) {
       try {
+        // eslint-disable-next-line no-debugger
+        debugger
         let data = {
           Amount: this.totalPriceProduct() + this.getPriceShipment(),
           CardCode: e.AccountNumber,
@@ -356,9 +358,10 @@ export default {
             resCheckout.ResultDesc &&
             resCheckout.ResultDesc == "Thanh cong"
           ) {
-            this.$state.toastMessage.unshift(
-            resources.vi.TOAST_MESSAGE.SUCCESS("Thanh toán thành công!")
-          );
+
+            this.$state.addToastMessage(this,
+            resources.vi.TOAST_MESSAGE.SUCCESS("Thanh toán")
+            );
             this.tempFormBody.OrderCode = res.Data.OrderCode;
             this.tempFormBody.IsPaid = 1;
 
@@ -373,11 +376,9 @@ export default {
             this.$state.cartNumber = cartNumber?.data == 0 ? 0 : cartNumber;
             return;
           }
-          else{
-            this.$state.toastMessage.unshift(
+          this.$state.addToastMessage(this,
             resources.vi.TOAST_MESSAGE.ERROR("Thanh toán thất bại!")
-          );
-          }
+            );
         }
       } catch (e) {
         console.log(e);
