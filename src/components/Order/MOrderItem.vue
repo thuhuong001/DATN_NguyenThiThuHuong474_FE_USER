@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-    <div class="bottom">
+    <div class="bottom" v-if="item.Status == 4 || item.Status ==5">
       <m-button>Đánh giá</m-button>
     </div>
   </div>

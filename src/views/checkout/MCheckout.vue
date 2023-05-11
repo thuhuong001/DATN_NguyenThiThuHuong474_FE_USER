@@ -118,9 +118,7 @@
                 src="https://hstatic.net/0/0/global/design/seller/image/payment/cod.svg?v=4"
                 alt=""
               /> -->
-              <label for="VNPAY"
-                >Thanh toán trực tuyến</label
-              >
+              <label for="VNPAY">Thanh toán trực tuyến</label>
             </div>
           </div>
           <div class="method-item">
@@ -191,9 +189,11 @@
     iconCloseClass="icon-close-big"
     @close-pop-up="isShowMPV = false"
   >
-  <MPvCombank v-model="formAccount" @submit:submitForm="checkoutOnline"></MPvCombank>
+    <MPvCombank
+      v-model="formAccount"
+      @submit:submitForm="checkoutOnline"
+    ></MPvCombank>
   </MPopUp>
-
 </template>
 
 <script>
@@ -209,8 +209,9 @@ import regionApi from "@/api/regionApi";
 import baseApi from "@/api/baseApi";
 import axiosClient from "@/api/axiosClient";
 
-import MPvCombank from "../pvcombank/MPvCombank.vue"; 
-import MPopUp from '@/components/pop-up/MPopUp.vue';
+import MPvCombank from "../pvcombank/MPvCombank.vue";
+import MPopUp from "@/components/pop-up/MPopUp.vue";
+import cartApi from '@/api/cartApi';
 
 export default {
   name: "MCheckout",
@@ -221,7 +222,7 @@ export default {
     MInput,
     CartItemCheckout,
     MPvCombank,
-    MPopUp
+    MPopUp,
   },
   created: async function () {
     // eslint-disable-next-line no-debugger
@@ -263,9 +264,9 @@ export default {
       listAddressReceive: [],
       AddressReceiveDefault: {},
       carts: [],
-      isShowMPV : false,
-      formAccount:{},
-      tempFormBody: {}
+      isShowMPV: false,
+      formAccount: {},
+      tempFormBody: {},
     };
   },
   methods: {
@@ -310,28 +311,31 @@ export default {
             PriceSale: x.PriceSale,
             ProductVariantId: x.ProductVariantId,
             Discount: x.Discount,
-            ImageLink : x.Images ? x.Images[0].ImageLink: '',
-            ProductName : x.ProductName,
-            ColorName : x.ColorName,
-            SizeNumber : x.SizeNumber,
+            ImageLink: x.Images ? x.Images[0].ImageLink : "",
+            ProductName: x.ProductName,
+            ColorName: x.ColorName,
+            SizeNumber: x.SizeNumber,
           });
         });
         let formBody = this.formCheckout;
         formBody.OrderDetails = orderDetails;
-        if(this.paymentMethod === enumH.paymentMethod.ONLINE){
+        if (this.paymentMethod === enumH.paymentMethod.ONLINE) {
           this.tempFormBody = JSON.parse(JSON.stringify(formBody));
           this.isShowMPV = true;
-        }else{
+        } else {
           const res = await new baseApi("Order").create(formBody);
-        if(!res.ErrorCode){
-          this.$state.tabProfile = 3;
-          this.$state.OrderId = res?.Data;
-          this.$router.push("/account/profile").then(() => {
-          window.scrollTo(0, 0);
-      });
+          if (!res.ErrorCode) {
+            this.$state.tabProfile = 3;
+            this.$state.OrderId = res?.Data;
+            const cartNumber = await new cartApi("Cart").cartNumber();
+            this.$state.cartNumber = cartNumber?.data == 0 ? 0 : cartNumber;
+            this.$router.push("/account/profile").then(() => {
+              window.scrollTo(0, 0);
+            });
+          }
         }
-        
-        }
+        const cartNumber = await new cartApi("Cart").cartNumber();
+        this.$state.cartNumber = cartNumber?.data == 0 ? 0 : cartNumber;
       } catch (error) {
         console.log(error);
       }
@@ -341,58 +345,73 @@ export default {
         let data = {
           Amount: this.totalPriceProduct() + this.getPriceShipment(),
           CardCode: e.AccountNumber,
-        }
-        
-
-
-        let url = `${ process.env.VUE_APP_BASE_API_URL}/CreditCard`;
+        };
+        let url = `${process.env.VUE_APP_BASE_API_URL}/CreditCard`;
         let res = await axiosClient.post(url, data);
-        if(res && res.Data) {
+        if (res && res.Data) {
           // lấy response dữ liệu thanh thoán
           let resCheckout = JSON.parse(res.Data.Result)?.Data;
-          if(resCheckout && resCheckout.ResultDesc && resCheckout.ResultDesc == "Thanh cong") {
+          if (
+            resCheckout &&
+            resCheckout.ResultDesc &&
+            resCheckout.ResultDesc == "Thanh cong"
+          ) {
+            this.$state.toastMessage.unshift(
+            resources.vi.TOAST_MESSAGE.SUCCESS("Thanh toán thành công!")
+          );
             this.tempFormBody.OrderCode = res.Data.OrderCode;
-            this.tempFormBody.IsPaid  = 1;
+            this.tempFormBody.IsPaid = 1;
 
             let resData = await new baseApi("Order").create(this.tempFormBody);
             this.isShowMPV = false;
             this.$state.tabProfile = 3;
             this.$state.OrderId = resData?.Data;
             this.$router.push("/account/profile").then(() => {
-                window.scrollTo(0, 0);
-            })
+              window.scrollTo(0, 0);
+            });
+            const cartNumber = await new cartApi("Cart").cartNumber();
+            this.$state.cartNumber = cartNumber?.data == 0 ? 0 : cartNumber;
             return;
           }
-
+          else{
+            this.$state.toastMessage.unshift(
+            resources.vi.TOAST_MESSAGE.ERROR("Thanh toán thất bại!")
+          );
+          }
         }
-      } catch(e) {
+      } catch (e) {
         console.log(e);
       }
     },
     addProperty() {
       this.formCheckout.TotalAmount = this.totalQuantity();
-      this.formCheckout.TotalPrice = this.totalPriceProduct() + this.getPriceShipment();
+      this.formCheckout.TotalPrice =
+        this.totalPriceProduct() + this.getPriceShipment();
       this.formCheckout.PaymentMethod = this.paymentMethod;
-      const shipment= this.shipments.find((x) => x.ShipmentCode == this.ShippingMethod);
+      const shipment = this.shipments.find(
+        (x) => x.ShipmentCode == this.ShippingMethod
+      );
       this.formCheckout.ShipmentId = shipment.ShipmentId;
       this.formCheckout.PriceShip = shipment.PriceShip;
-      this.formCheckout.AddressReceiveId =this.AddressReceiveDefault.AddressReceiveId;
+      this.formCheckout.AddressReceiveId =
+        this.AddressReceiveDefault.AddressReceiveId;
       this.formCheckout.Receiver = this.AddressReceiveDefault.Receiver;
       this.formCheckout.Phone = this.AddressReceiveDefault.Phone;
-      this.formCheckout.AddressDetail = this.AddressReceiveDefault.AddressDetail;
+      this.formCheckout.AddressDetail =
+        this.AddressReceiveDefault.AddressDetail;
       this.formCheckout.Status = enumH.enumStatusOrder.ChoXacNhan;
-    }
+    },
   },
   watch: {},
 };
 </script>
 <style scoped>
 @import url(./checkout.css);
-textarea::placeholder{
+textarea::placeholder {
   font-size: 12px;
   font-style: italic;
 }
-.m-pup-up-main{
+.m-pup-up-main {
   height: 100vh;
 }
 </style>

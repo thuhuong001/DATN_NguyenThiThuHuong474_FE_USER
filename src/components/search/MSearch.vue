@@ -13,7 +13,7 @@
         <div class="list-product-saerch">
             <m-search-item v-for="product,index in products" :key="index" :item="product" />
         </div>
-        <h6 class="total-product" v-if="products.length != 0">Xem thêm {{totalProduct}} sản phẩm</h6>
+        <h6 class="total-product" v-if="products.length != 0"  @click="goToProductsAll">Xem thêm {{totalProduct}} sản phẩm</h6>
       </div>
       <div class="logo">
         <a style="opacity: 0" href="/"
@@ -64,11 +64,16 @@ export default {
         }else{
             this.products = [];
         }
+    },
+    goToProductsAll(){
+      this.$state.isSearch = false;
+      this.$router.push("/products");
     }
   },
 };
 </script>
 <style scoped>
+
 .m-search {
   background: rgba(106, 105, 105, 0.323);
   width: 100%;
@@ -90,26 +95,33 @@ export default {
 }
 .m-search-input {
   width: 100%;
+  flex-basis: 60%;
 }
 .m-search-input > h6 {
   text-align: center;
 }
-.list-product-saerch{
+.list-product-saerch {
   max-height: 500px;
- overflow-y: auto ;
+  overflow-y: auto;
+}
+.logo {
+  flex-basis: 20%;
 }
 .logo img {
-  height: 31%;
   width: 100%;
   -o-object-fit: cover;
   object-fit: cover;
+  height: 34px;
+    margin-top: 27px;
 }
 .close-search {
   position: absolute;
   right: 20px;
   top: 31px;
   padding: 4px;
-}.total-product{
-    text-align: center;
+}
+.total-product {
+  text-align: center;
+  cursor: pointer;
 }
 </style>

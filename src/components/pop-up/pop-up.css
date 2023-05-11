@@ -9,6 +9,7 @@
     justify-content: center;
     z-index: 14;
     transition: 0.5s;
+    height: 100vh;
 }
 .m-pop-up{
     background-color: white;
