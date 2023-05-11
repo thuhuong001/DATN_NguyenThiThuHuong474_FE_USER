@@ -1,17 +1,17 @@
 <template>
-  <header class="header">
+  <header class="header" v-if="$state.isHeaderAndFooterShow">
     <div class="logo">
       <a href="/"><img src="../assets/img/logo.webp" alt="" /></a>
     </div>
     <div class="menu">
       <li class="menu-item"><a href="/">TRANG CHỦ</a></li>
+      <li class="menu-item"><a href="/products">SẢN PHẨM</a></li>
       <li class="menu-item">HÀNG MỚI</li>
-      <li class="menu-item">SẢN PHẨM</li>
       <li class="menu-item">GIẢM GIÁ</li>
       <li class="menu-item">BÁN CHẠY</li>
     </div>
     <div class="action">
-      <div class="search">
+      <div class="search" @click="$state.isSearch = true">
         <div class="icon icon-search"></div>
       </div>
       <div class="action_setting">
@@ -165,15 +165,22 @@ export default {
       this.isShowCartView = false;
       this.$router.push("/cart");
     },
+    goToOrder() {
+      this.isShowCartView = false;
+      this.$state.tabProfile = 3;
+      this.$router.push("/account/profile").then(() => {
+        window.scrollTo(0, 0);
+      });
+    },
     async logout() {
       try {
-        // eslint-disable-next-line no-debugger
-        debugger;
         var res = await new authApi().signout(localStorage.getItem("token"));
         if (res) {
           localStorage.removeItem("user");
           localStorage.removeItem("token");
+          this.isShowSettingUser = false;
           window.location.reload();
+          window.location.assign('/');
         }
       } catch (error) {
         console.log(error);

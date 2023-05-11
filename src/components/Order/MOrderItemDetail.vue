@@ -265,4 +265,5 @@ export default {
 ._8kMYJ3.btn-destroy{
   background-color: white;
 }
+
 </style>

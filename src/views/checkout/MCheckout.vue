@@ -1,7 +1,9 @@
 <template>
   <div class="checkout">
     <div class="checkout-address">
-
+      <a href="/"
+        ><img src="@/assets/img/logo.webp" alt="" class="img-checkout"
+      /></a>
       <FolderRoutes :folderRoutes="folderRoutes" />
       <h3 class="method-title">Thông tin giao hàng</h3>
       <div class="combo-select">
@@ -112,10 +114,10 @@
                 :value="enumPayment.ONLINE"
                 v-model="paymentMethod"
               />
-              <img
+              <!-- <img
                 src="https://hstatic.net/0/0/global/design/seller/image/payment/cod.svg?v=4"
                 alt=""
-              />
+              /> -->
               <label for="VNPAY"
                 >Thanh toán trực tuyến</label
               >
@@ -181,7 +183,19 @@
     @update:isShow="closePopupAddress"
     v-model="AddressReceiveDefault"
   />
+  <MPopUp
+    :isShow="isShowMPV"
+    :isIconClose="true"
+    dataTipIcon="Đóng (Esc)"
+    minHeight="max-content"
+    iconCloseClass="icon-close-big"
+    @close-pop-up="isShowMPV = false"
+  >
+  <MPvCombank v-model="formAccount" @submit:submitForm="checkoutOnline"></MPvCombank>
+  </MPopUp>
+
 </template>
+
 <script>
 import mixinForm from "@/mixins/mixinForm.js";
 import FolderRoutes from "@/components/FolderRoutes.vue";
@@ -193,6 +207,11 @@ import enumH from "@/common/enum";
 import CartItemCheckout from "@/components/Cart/CartItemCheckout.vue";
 import regionApi from "@/api/regionApi";
 import baseApi from "@/api/baseApi";
+import axiosClient from "@/api/axiosClient";
+
+import MPvCombank from "../pvcombank/MPvCombank.vue"; 
+import MPopUp from '@/components/pop-up/MPopUp.vue';
+
 export default {
   name: "MCheckout",
   components: {
@@ -201,10 +220,11 @@ export default {
     MCombobox,
     MInput,
     CartItemCheckout,
+    MPvCombank,
+    MPopUp
   },
   created: async function () {
     // eslint-disable-next-line no-debugger
-    debugger;
     this.$state.isHeaderAndFooterShow = false;
     let res = await new baseApi("Cart").getByFilter({});
     this.carts = res.Data;
@@ -243,6 +263,9 @@ export default {
       listAddressReceive: [],
       AddressReceiveDefault: {},
       carts: [],
+      isShowMPV : false,
+      formAccount:{},
+      tempFormBody: {}
     };
   },
   methods: {
@@ -296,9 +319,8 @@ export default {
         let formBody = this.formCheckout;
         formBody.OrderDetails = orderDetails;
         if(this.paymentMethod === enumH.paymentMethod.ONLINE){
-          this.$router.push("/pvcombank/login").then(() => {
-          window.scrollTo(0, 0);
-      });
+          this.tempFormBody = JSON.parse(JSON.stringify(formBody));
+          this.isShowMPV = true;
         }else{
           const res = await new baseApi("Order").create(formBody);
         if(!res.ErrorCode){
@@ -314,6 +336,39 @@ export default {
         console.log(error);
       }
     },
+    async checkoutOnline(e) {
+      try {
+        let data = {
+          Amount: this.totalPriceProduct() + this.getPriceShipment(),
+          CardCode: e.AccountNumber,
+        }
+        
+
+
+        let url = `${ process.env.VUE_APP_BASE_API_URL}/CreditCard`;
+        let res = await axiosClient.post(url, data);
+        if(res && res.Data) {
+          // lấy response dữ liệu thanh thoán
+          let resCheckout = JSON.parse(res.Data.Result)?.Data;
+          if(resCheckout && resCheckout.ResultDesc && resCheckout.ResultDesc == "Thanh cong") {
+            this.tempFormBody.OrderCode = res.Data.OrderCode;
+            this.tempFormBody.IsPaid  = 1;
+
+            let resData = await new baseApi("Order").create(this.tempFormBody);
+            this.isShowMPV = false;
+            this.$state.tabProfile = 3;
+            this.$state.OrderId = resData?.Data;
+            this.$router.push("/account/profile").then(() => {
+                window.scrollTo(0, 0);
+            })
+            return;
+          }
+
+        }
+      } catch(e) {
+        console.log(e);
+      }
+    },
     addProperty() {
       this.formCheckout.TotalAmount = this.totalQuantity();
       this.formCheckout.TotalPrice = this.totalPriceProduct() + this.getPriceShipment();
@@ -326,7 +381,7 @@ export default {
       this.formCheckout.Phone = this.AddressReceiveDefault.Phone;
       this.formCheckout.AddressDetail = this.AddressReceiveDefault.AddressDetail;
       this.formCheckout.Status = enumH.enumStatusOrder.ChoXacNhan;
-    },
+    }
   },
   watch: {},
 };
@@ -336,5 +391,8 @@ export default {
 textarea::placeholder{
   font-size: 12px;
   font-style: italic;
+}
+.m-pup-up-main{
+  height: 100vh;
 }
 </style>

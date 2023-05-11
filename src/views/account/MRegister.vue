@@ -187,7 +187,7 @@ export default {
   content: "";
   width: 20%;
   height: 2px;
-  background-color: rgb(124, 247, 43);
+  background-color: rgb(252, 187, 66);
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);

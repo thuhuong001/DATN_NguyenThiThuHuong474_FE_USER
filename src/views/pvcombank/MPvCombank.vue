@@ -9,23 +9,39 @@
                 <div class="pv-form-icon"></div>
                 <div class="pv-form-title">Đăng nhập</div>
             </div>
-            <form action="" class="">
+            <div action="" class="">
                 <div class="pv-input-wrapper pv-flex">
                     <div class="pv-input-icon"><i class="fa-solid fa-user"></i></div>
-                    <input type="text" class="pv-input" placeholder="Tên đăng nhập">
+                    <input type="text"  v-model="formAccount.AccountNumber" class="pv-input" placeholder="Tên đăng nhập">
                 </div>
                 <div class="pv-input-wrapper pv-flex">
                     <div class="pv-input-icon"><i class="fa-solid fa-lock"></i></div>
-                    <input type="text" class="pv-input" placeholder="Mật khẩu">
+                    <input type="password"  v-model="formAccount.Password" class="pv-input" placeholder="Mật khẩu">
                 </div>
-                <button class="pv-form-button-login">Đăng nhập</button>
-            </form>
+                <button class="pv-form-button-login" @click="checkoutCredit">Đăng nhập</button>
+            </div>
         </div>
     </div>
 </template>
 <script>
     export default{
         name: "PvCombank",
+        props:{
+            modelValue : Object
+        },
+        data(){
+            return {
+                formAccount:{
+                    AccountNumber: "",
+                    Password :""
+                }
+            }
+        },
+        methods:{
+            checkoutCredit() {
+                this.$emit("submit:submitForm",this.formAccount);
+            }
+        }
     }
 </script>
 <style scoped>
@@ -35,7 +51,6 @@
 }
 .pv-main{
     width: 100%;
-    height: 100vh;
 }
 .pv-bank-header{
     align-items: center;
@@ -63,6 +78,9 @@
     border-top: 5px solid #fed330;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border-radius: 10px;
+}
+.m-pop-up__main{
+    height: max-content !important;
 }
 .pv-form-header{
     margin: 20px 20px;

@@ -1,5 +1,5 @@
 <template>
-  <div class="p-card" :style="style">
+  <div class="p-card" :style="style" >
     <!-- <router-link :to="`/products/${item.ProductId}`"> -->
     <Carousel class="p-card-image" :settings="settingSliderBarImage">
       <Slide
@@ -12,7 +12,7 @@
     </Carousel>
     <!-- </router-link> -->
     <div class="p-card-content"  @click="addToCart">
-      <div class="title truncate_two-row">{{ item.ProductName }}</div>
+      <div class="title truncate_two-row">{{ item?.ProductName }}</div>
       <div class="proloop-price">
         <div class="price-del">{{ $state.formatPrice(item.PriceDel) }}</div>
         <div class="price">{{ $state.formatPrice(item.PriceSale) }}</div>
@@ -51,19 +51,20 @@ export default {
   },
   props: {
     item: Object,
-    class: String,
     width: {
       type: Number,
     },
     height: {
       type: Number,
     },
+    padding:String
   },
   computed: {
     style() {
       return {
         width: this.width,
         height: this.height,
+        padding: this.padding
       };
     },
     colorType() {

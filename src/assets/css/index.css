@@ -48,6 +48,7 @@ body {
 }
 .m-main-content{
   padding: 0px var(--padding-beside);
+  margin-top: var(--height-header);
 }
 img {
   height: 100%;

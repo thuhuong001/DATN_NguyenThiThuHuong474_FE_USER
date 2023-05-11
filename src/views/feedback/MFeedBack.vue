@@ -16,7 +16,7 @@
             <textarea class="pv-text-rate" placeholder="Hãy chia sẻ những điều bạn thích về sản phẩm này cho người khác nhé" name="" id="" cols="60" rows="5"></textarea>
         </div>
         <div class="pv-popup-control pv-flex">
-            <button class="pv-button-tranparent">TRỞ LẠI</button>
+            <button class="pv-button-tranparent">Trở lạ<i></i></button>
             <button class="pv-button-complete">Hoàn Thành</button>
         </div>
         

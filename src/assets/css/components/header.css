@@ -6,7 +6,13 @@
     justify-content: space-between;
     align-items: center;
     background-color: var(--background-color-header);
-
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9;
+}
+.logo{
+    max-width: 20%
 }
 .account-user{
     font-weight: 500;

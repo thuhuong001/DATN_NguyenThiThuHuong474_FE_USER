@@ -233,7 +233,8 @@ export default {
       this.sizeActive = color.Sizes[0] ? color.Sizes[0] : null;
     },
     activeSize(size) {
-      this.sizeActive = size;
+      this.sizeActive.SizeId = size.SizeId;
+      this.sizeActive.SizeNumber = size.SizeNumber;
     },
     async addToCart() {
       try {
@@ -583,4 +584,9 @@ export default {
   display: inline-block;
   vertical-align: middle;
 }
+.p-quantity-detail{
+  font-size: 12px;
+  font-weight: 500;
+}
+
 </style>

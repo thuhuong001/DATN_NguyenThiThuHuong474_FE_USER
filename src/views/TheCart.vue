@@ -102,6 +102,14 @@ export default {
       const cartNumber = await new cartApi("Cart").cartNumber();
       this.$state.cartNumber = cartNumber?.data == "0" ? 0 : cartNumber;
       this.carts = this.carts.filter((x) => x.CartId != cartId);
+      this.total = {
+            totalPrice: 0,
+            totalDel: 0,
+       }
+      this.carts.forEach((element) => {
+        this.total.totalPrice += element.TotalPrice;
+        this.total.totalDel += element.TotalDel;
+      });
     },
     async getCart() {
       try {

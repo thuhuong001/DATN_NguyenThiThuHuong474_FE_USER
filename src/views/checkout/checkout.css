@@ -1,6 +1,7 @@
 .m-main-content .checkout{
     display: flex;
     background-color: white;
+    margin-top: -70px !important;
 }
 .checkout-address{
     width: 60%;

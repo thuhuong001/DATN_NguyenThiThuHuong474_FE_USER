@@ -52,7 +52,7 @@ const state = reactive({
     }
   },
   formatPrice(price) {
-    if (!price) return "";
+    //if (!price) return "";
     return new Intl.NumberFormat("vi-VN", {
       style: "currency",
       currency: "VND",

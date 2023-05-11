@@ -51,7 +51,9 @@ axiosClient.interceptors.response.use(
       // Xử lý các lỗi từ phía server
       if (error.response.status === 401) {
         router.push('/');
-        toastMessage(resources.vi.errorMessageAPI.ERROR_AUTHENTICATE);
+        localStorage.removeItem("user");
+        this.$state.isLogin = true;
+        // toastMessage(resources.vi.errorMessageAPI.ERROR_AUTHENTICATE);
       }
     } else if (error.request) {
       // Xử lý các lỗi từ phía client

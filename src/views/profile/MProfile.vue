@@ -9,19 +9,19 @@
             </div>
             <div class="profile-list-tab">
                 <div class="profile-tab-item-1">
-                    <div class="div" @click="tabInfoStyle = !tabInfoStyle"><i class="fa-regular fa-user"></i>Tài khoản của tôi</div>
+                    <div class="div" @click="changeTab(1)"><i class="fa-regular fa-user"></i>Tài khoản của tôi</div>
                 </div>
-                 <div class="profile-list-tab-2" :style="{height : tabInfoStyle ? '0px' : 'auto'}">
-                        <div class="profile-tab-item-2" @click="changeTab(1)">Hồ sơ</div>
-                        <div class="profile-tab-item-2" @click="changeTab(2)">Địa chỉ</div>
+                 <div class="profile-list-tab-2" :style="{height : false  ? '0px' : 'auto'}">
+                        <div class="profile-tab-item-2" :class="{active :$state.tabProfile == 1 }" @click="changeTab(1)">Hồ sơ</div>
+                        <div class="profile-tab-item-2" :class="{active :$state.tabProfile == 2 }" @click="changeTab(2)">Địa chỉ</div>
                     </div>
-                <div class="profile-tab-item-1" @click="changeTab(3)"><i class="fa-regular fa-money-bill-1"></i>Đơn mua</div>
+                <div class="profile-tab-item-1" :class="{active :$state.tabProfile == 3 }" @click="changeTab(3)"><i class="fa-regular fa-money-bill-1"></i>Đơn mua</div>
             </div>
         </div>
         <div class="profile-right">
-            <m-info-user  :isShow="tabProfile == 1 ? true : false" />
-            <m-address-user   :isShow="tabProfile == 2 ? true : false" />
-            <m-order-profile  :isShow="tabProfile == 3 ? true : false" />
+            <m-info-user  :isShow="$state.tabProfile == 1 ? true : false" />
+            <m-address-user   :isShow="$state.tabProfile == 2 ? true : false" />
+            <m-order-profile  :isShow="$state.tabProfile == 3 ? true : false" />
         </div>
     </div>
 </template>
@@ -38,13 +38,12 @@ export default {
     },
     data() {
         return {
-            tabProfile : 1,
-            tabInfoStyle : true
+            tabInfoStyle : true,
         }
     },
     methods:{
         changeTab(tab){
-            this.tabProfile = tab;
+            this.$state.tabProfile = tab;
         }
     }
 }

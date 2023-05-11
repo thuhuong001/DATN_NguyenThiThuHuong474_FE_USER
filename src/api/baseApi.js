@@ -17,6 +17,16 @@ class baseApi {
       console.log(error);
     }
   };
+    /**
+   * Lấy các item theo bộ lọc
+   */
+    getFilterDynamic = () => {
+      try {
+        return axiosClient.post(this.baseUrl + "filter",{});
+      } catch (error) {
+        console.log(error);
+      }
+    };
   /**
    * Lấy các item theo bộ lọc
    */
